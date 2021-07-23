@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_chat/helper_functions/shared_preferences_helper.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthMethods {
@@ -23,6 +24,10 @@ class AuthMethods {
     UserCredential result =
         await _firebaseAuth.signInWithCredential(credential);
     User? userDetails = result.user;
-    if (result != null) {}
+
+    SharedPreferenceHelper().saveUserEmail(userDetails?.email);
+    SharedPreferenceHelper().saveUserId(userDetails?.uid);
+    SharedPreferenceHelper().saveDisplayName(userDetails?.displayName);
+    SharedPreferenceHelper().saveUserProfileUrl(userDetails?.photoURL);
   }
 }
