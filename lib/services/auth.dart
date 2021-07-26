@@ -5,6 +5,7 @@ import 'package:flutter_chat/helper_functions/shared_preferences_helper.dart';
 import 'package:flutter_chat/services/database.dart';
 import 'package:flutter_chat/views/home.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthMethods {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -46,5 +47,11 @@ class AuthMethods {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => Home()));
     });
+  }
+
+  Future signOut() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    await auth.signOut();
   }
 }
