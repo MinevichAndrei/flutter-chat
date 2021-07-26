@@ -49,7 +49,7 @@ class SharedPreferenceHelper {
     return prefs.getString(userIdKey);
   }
 
-  Future<String?> getDisplayNmae() async {
+  Future<String?> getDisplayName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(displayNameKey);
   }
