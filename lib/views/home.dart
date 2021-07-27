@@ -47,7 +47,6 @@ class _HomeState extends State<Home> {
       {required String profileUrl, name, username, email}) {
     return GestureDetector(
       onTap: () {
-        print('rfrfrfrfrfr $myUserName, $username');
         var chatRoomId = getChatRoomIdByUsernames(myUserName, username);
         Map<String, dynamic> chatRoomInfoMap = {
           "users": [myUserName, username],
