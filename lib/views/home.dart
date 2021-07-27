@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/helper_functions/shared_preferences_helper.dart';
 import 'package:flutter_chat/services/auth.dart';
 import 'package:flutter_chat/services/database.dart';
 import 'package:flutter_chat/views/chat_screen.dart';
@@ -14,9 +15,25 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool isSearhing = false;
+  String? myName = "", myProfilePic = "", myUserName = "", myEmail = "";
   var usersStream = Stream<QuerySnapshot>.empty();
   TextEditingController searchUserNameEditingController =
       TextEditingController();
+
+  getMyInfoFromSharedPreference() async {
+    myName = await SharedPreferenceHelper().getDisplayName();
+    myProfilePic = await SharedPreferenceHelper().getUserProfileUrl();
+    myUserName = await SharedPreferenceHelper().getUserName();
+    myEmail = await SharedPreferenceHelper().getUserEmail();
+  }
+
+  getChatRoomIdByUsernames(String? a, String? b) {
+    if (a!.substring(0, 1).codeUnitAt(0) > b!.substring(0, 1).codeUnitAt(0)) {
+      return "$b\_$a";
+    } else {
+      return "$a\_$b";
+    }
+  }
 
   onSearchButtnClick() async {
     isSearhing = true;
@@ -30,6 +47,13 @@ class _HomeState extends State<Home> {
       {required String profileUrl, name, username, email}) {
     return GestureDetector(
       onTap: () {
+        print('rfrfrfrfrfr $myUserName, $username');
+        var chatRoomId = getChatRoomIdByUsernames(myUserName, username);
+        Map<String, dynamic> chatRoomInfoMap = {
+          "users": [myUserName, username],
+        };
+
+        DatabaseMethods().createChatRoom(chatRoomId, chatRoomInfoMap);
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -84,6 +108,12 @@ class _HomeState extends State<Home> {
 
   Widget chatRoomsList() {
     return Container();
+  }
+
+  @override
+  void initState() {
+    getMyInfoFromSharedPreference();
+    super.initState();
   }
 
   @override
