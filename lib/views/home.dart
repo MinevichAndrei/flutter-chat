@@ -254,10 +254,8 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Image.network(
-          profilePicUrl,
-          height: 30,
-          width: 30,
+        CircleAvatar(
+          backgroundImage: NetworkImage(profilePicUrl),
         ),
         SizedBox(
           width: 12,
