@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_chat/helper_functions/shared_preferences_helper.dart';
 
 class DatabaseMethods {
   Future addUserInfoToDB(
@@ -60,5 +61,21 @@ class DatabaseMethods {
         .collection("chats")
         .orderBy("ts", descending: true)
         .snapshots();
+  }
+
+  Future<Stream<QuerySnapshot>> getChatRooms() async {
+    String? myUsername = await SharedPreferenceHelper().getUserName();
+    return FirebaseFirestore.instance
+        .collection("chatrooms")
+        .orderBy("lastMessageSendTs", descending: true)
+        .where("users", arrayContains: myUsername)
+        .snapshots();
+  }
+
+  Future<QuerySnapshot> getUserInfo(String username) async {
+    return await FirebaseFirestore.instance
+        .collection("users")
+        .where("username", isEqualTo: username)
+        .get();
   }
 }
