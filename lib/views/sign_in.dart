@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_chat/services/auth.dart';
 
 class SignIn extends StatefulWidget {
@@ -11,25 +12,67 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Flutter Chat"),
-      ),
-      body: Center(
-        child: GestureDetector(
-          onTap: () {
-            AuthMethods().signInWithGoogle(context);
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              color: Color(0xffDB4437),
-              borderRadius: BorderRadius.circular(24),
-            ),
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    final email = TextFormField(
+        keyboardType: TextInputType.emailAddress,
+        autofocus: false,
+        decoration: InputDecoration(
+            hintText: 'Email',
+            contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(32.0),
+            )));
+
+    final password = TextFormField(
+        autofocus: false,
+        obscureText: true,
+        decoration: InputDecoration(
+            hintText: 'Password',
+            contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(32.0),
+            )));
+
+    final loginButton = Padding(
+        padding: EdgeInsets.symmetric(vertical: 16.0),
+        child: ConstrainedBox(
+          constraints: BoxConstraints.tightFor(width: 200.0, height: 42.0),
+          child: ElevatedButton(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                )),
+                elevation: MaterialStateProperty.all<double>(5.0)),
             child: Text(
-              "Sign In with Google",
-              style: TextStyle(fontSize: 16, color: Colors.white),
+              'Log In',
+              style: TextStyle(color: Colors.blueAccent),
             ),
+            onPressed: () => {AuthMethods().signInWithGoogle(context)},
+          ),
+        ));
+
+    return Scaffold(
+      backgroundColor: Colors.blue,
+      body: SafeArea(
+        child: Center(
+          child: ListView(
+            shrinkWrap: true,
+            padding: EdgeInsets.only(left: 24.0, right: 24.0),
+            children: [
+              SizedBox(
+                height: 48.0,
+              ),
+              email,
+              SizedBox(
+                height: 8.0,
+              ),
+              password,
+              SizedBox(
+                height: 24.0,
+              ),
+              loginButton,
+            ],
           ),
         ),
       ),
