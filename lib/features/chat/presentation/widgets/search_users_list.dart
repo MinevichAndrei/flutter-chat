@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat/widgets/search_list_user_tile.dart';
+import 'package:flutter_chat/features/chat/presentation/widgets/search_list_user_tile.dart';
 
 class SearchUsersListWidget extends StatelessWidget {
   final Stream<QuerySnapshot> usersStream;

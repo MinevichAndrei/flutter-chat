@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat/helper_functions/shared_preferences_helper.dart';
 import 'package:flutter_chat/services/auth.dart';
 import 'package:flutter_chat/services/database.dart';
-import 'package:flutter_chat/views/sign_in.dart';
-import 'package:flutter_chat/widgets/chat_room_list.dart';
-import 'package:flutter_chat/widgets/search_users_list.dart';
+import 'package:flutter_chat/features/chat/presentation/pages/sign_in.dart';
+import 'package:flutter_chat/features/chat/presentation/widgets/chat_room_list.dart';
+import 'package:flutter_chat/features/chat/presentation/widgets/search_users_list.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
