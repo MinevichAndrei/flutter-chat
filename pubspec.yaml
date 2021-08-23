@@ -20,6 +20,8 @@ dependencies:
   cloud_firestore: ^2.4.0
   equatable: ^2.0.3
   dartz: ^0.10.0
+  flutter_bloc: ^7.2.0
+  get_it: ^7.2.0
 
 dev_dependencies:
   flutter_test:

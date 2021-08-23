@@ -5,12 +5,15 @@ import 'package:flutter_chat/services/auth.dart';
 import 'package:flutter_chat/features/chat/presentation/pages/home.dart';
 import 'package:flutter_chat/features/chat/presentation/pages/sign_in.dart';
 
+import 'package:flutter_chat/locator_service.dart' as di;
+
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.blue,
   ));
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await di.init();
   runApp(MyApp());
 }
 
