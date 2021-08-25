@@ -14,6 +14,7 @@ class SearchListUserTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(profileUrl);
     return GestureDetector(
       onTap: () {
         var chatRoomId = getChatRoomIdByUsernames(myUserName, username);

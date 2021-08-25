@@ -14,7 +14,7 @@ class UsersLoading extends UsersState {}
 
 class UsersLoaded extends UsersState {
   final List<UserEntity> userList;
-  UsersLoaded(this.userList);
+  UsersLoaded([this.userList = const []]);
   @override
   List<Object> get props => [userList];
 }

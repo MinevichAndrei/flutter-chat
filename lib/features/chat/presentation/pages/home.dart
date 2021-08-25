@@ -50,7 +50,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final UsersListBloc userBloc = BlocProvider.of<UsersListBloc>(context);
     return BlocProvider<UsersListBloc>(
       create: (context) => sl<UsersListBloc>(),
       child: Scaffold(
@@ -114,9 +113,10 @@ class _HomeState extends State<Home> {
                           GestureDetector(
                             onTap: () {
                               if (searchUserNameEditingController.text != "") {
-                                userBloc.add(GetUsersEvent(
-                                    username:
-                                        searchUserNameEditingController.text));
+                                sl<UsersListBloc>()
+                                  ..add(GetUsersEvent(
+                                      username: searchUserNameEditingController
+                                          .text));
                               }
                             },
                             child: Icon(Icons.search),
@@ -127,11 +127,7 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              isSearhing
-                  ? SearchUsersListWidget(myUserName: myUserName!)
-                  : ChatRoomListWidget(
-                      chatRoomsStream: chatRoomsStream,
-                      myUserName: myUserName!),
+              SearchUsersListWidget(myUserName: myUserName!),
             ],
           ),
         ),

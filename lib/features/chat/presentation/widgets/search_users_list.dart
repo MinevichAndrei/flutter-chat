@@ -13,7 +13,8 @@ class SearchUsersListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UsersListBloc, UsersState>(builder: (context, state) {
-      if (state is UserEmpty || state is UsersLoading) {
+      print(state.props);
+      if (state is UsersLoading) {
         return Spinner();
       } else if (state is UsersLoaded) {
         return ListView.builder(
