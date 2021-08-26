@@ -1,11 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_chat/services/auth.dart';
-import 'package:flutter_chat/features/chat/presentation/pages/home.dart';
-import 'package:flutter_chat/features/chat/presentation/pages/sign_in.dart';
+import 'package:flutter_chat/src/core/services/auth.dart';
+import 'package:flutter_chat/src/presentation/pages/home.dart';
+import 'package:flutter_chat/src/presentation/pages/sign_in.dart';
 
-import 'package:flutter_chat/locator_service.dart' as di;
+import 'package:flutter_chat/src/locator_service.dart' as di;
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
