@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat/src/core/services/database.dart';
-import 'package:flutter_chat/src/presentation/pages/chat_screen.dart';
+import 'package:flutter_chat/core/services/database.dart';
+import 'package:flutter_chat/features/search_user_for_chat/presentation/pages/chat_screen.dart';
 
 class SearchListUserTileWidget extends StatelessWidget {
   final String profileUrl, name, username, email, myUserName;

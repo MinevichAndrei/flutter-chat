@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_chat/src/domain/entities/user_entity.dart';
+import 'package:flutter_chat/features/search_user_for_chat/domain/entities/user_entity.dart';
 
 abstract class UsersState extends Equatable {
   const UsersState();

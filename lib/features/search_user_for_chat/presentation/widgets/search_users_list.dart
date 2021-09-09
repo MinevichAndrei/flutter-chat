@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chat/src/common/widgets/spinner.dart';
-import 'package:flutter_chat/src/presentation/bloc/user_bloc/user_bloc.dart';
-import 'package:flutter_chat/src/presentation/bloc/user_bloc/user_state.dart';
-import 'package:flutter_chat/src/presentation/widgets/search_list_user_tile.dart';
-import 'package:flutter_chat/src/common/widgets/error_widget.dart' as error;
+import 'package:flutter_chat/common/widgets/spinner.dart';
+import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/user_bloc.dart';
+import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/user_state.dart';
+
+import 'package:flutter_chat/common/widgets/error_widget.dart' as error;
+import 'package:flutter_chat/features/search_user_for_chat/presentation/widgets/search_list_user_tile.dart';
 
 class SearchUsersListWidget extends StatelessWidget {
   final String myUserName;

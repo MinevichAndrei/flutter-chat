@@ -1,16 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chat/src/core/services/shared_preferences_helper.dart';
-import 'package:flutter_chat/src/locator_service.dart';
-import 'package:flutter_chat/src/core/services/auth.dart';
-import 'package:flutter_chat/src/core/services/database.dart';
-import 'package:flutter_chat/src/presentation/bloc/user_bloc/user_bloc.dart';
-import 'package:flutter_chat/src/presentation/bloc/user_bloc/user_state.dart';
-import 'package:flutter_chat/src/presentation/bloc/user_bloc/users_event.dart';
-import 'package:flutter_chat/src/presentation/pages/sign_in.dart';
-import 'package:flutter_chat/src/presentation/widgets/chat_room_list.dart';
-import 'package:flutter_chat/src/presentation/widgets/search_users_list.dart';
+import 'package:flutter_chat/core/services/auth.dart';
+import 'package:flutter_chat/core/services/database.dart';
+import 'package:flutter_chat/core/services/shared_preferences_helper.dart';
+import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/user_bloc.dart';
+import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/user_state.dart';
+import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/users_event.dart';
+import 'package:flutter_chat/features/search_user_for_chat/presentation/pages/sign_in.dart';
+import 'package:flutter_chat/features/search_user_for_chat/presentation/widgets/chat_room_list.dart';
+import 'package:flutter_chat/features/search_user_for_chat/presentation/widgets/search_users_list.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

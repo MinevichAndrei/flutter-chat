@@ -1,5 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_chat/src/domain/entities/user_entity.dart';
+import 'package:flutter_chat/features/search_user_for_chat/domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
   UserModel({

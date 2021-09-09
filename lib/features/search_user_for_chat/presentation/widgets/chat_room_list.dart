@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat/src/presentation/pages/chat_room_list_tile.dart';
+import 'package:flutter_chat/features/search_user_for_chat/presentation/pages/chat_room_list_tile.dart';
 
 class ChatRoomListWidget extends StatelessWidget {
   final Stream<QuerySnapshot> chatRoomsStream;

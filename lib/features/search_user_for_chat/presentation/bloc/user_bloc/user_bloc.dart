@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chat/src/domain/repositories/user_repository.dart';
-import 'package:flutter_chat/src/presentation/bloc/user_bloc/user_state.dart';
-import 'package:flutter_chat/src/presentation/bloc/user_bloc/users_event.dart';
+import 'package:flutter_chat/features/search_user_for_chat/domain/repositories/user_repository.dart';
+import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/user_state.dart';
+import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/users_event.dart';
 
 class UsersBloc extends Bloc<UsersEvent, UsersState> {
   final UserRepository userRepository;

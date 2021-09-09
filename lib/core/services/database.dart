@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_chat/src/core/services/shared_preferences_helper.dart';
+import 'package:flutter_chat/core/services/shared_preferences_helper.dart';
 
 class DatabaseMethods {
   Future addUserInfoToDB(

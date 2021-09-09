@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_chat/src/core/usecase/usecase.dart';
-import 'package:flutter_chat/src/domain/entities/user_entity.dart';
-import 'package:flutter_chat/src/domain/repositories/user_repository.dart';
+import 'package:flutter_chat/core/usecase/usecase.dart';
+import 'package:flutter_chat/features/search_user_for_chat/domain/entities/user_entity.dart';
+import 'package:flutter_chat/features/search_user_for_chat/domain/repositories/user_repository.dart';
 
 class GetUserByUserName extends UseCase<List<UserEntity>, UserParams> {
   final UserRepository userRepository;

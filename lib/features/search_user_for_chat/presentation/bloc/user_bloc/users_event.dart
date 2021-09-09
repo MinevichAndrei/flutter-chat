@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_chat/src/data/models/user_model.dart';
+import 'package:flutter_chat/features/search_user_for_chat/data/models/user_model.dart';
 
 abstract class UsersEvent extends Equatable {
   const UsersEvent();
