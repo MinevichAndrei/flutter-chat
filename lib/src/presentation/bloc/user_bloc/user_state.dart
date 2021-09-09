@@ -8,22 +8,18 @@ abstract class UsersState extends Equatable {
   List<Object> get props => [];
 }
 
-class UserEmpty extends UsersState {}
+class UsersLoadInProgress extends UsersState {}
 
-class UsersLoading extends UsersState {}
+class UsersLoadSuccess extends UsersState {
+  final List<UserEntity> users;
 
-class UsersLoaded extends UsersState {
-  final List<UserEntity> userList;
-  UsersLoaded([this.userList = const []]);
-  @override
-  List<Object> get props => [userList];
-}
-
-class UsersError extends UsersState {
-  final String message;
-
-  UsersError({required this.message});
+  const UsersLoadSuccess({required this.users});
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [users];
+
+  @override
+  String toString() => 'UsersLoadSuccess { todos: $users }';
 }
+
+class UsersLoadFailure extends UsersState {}

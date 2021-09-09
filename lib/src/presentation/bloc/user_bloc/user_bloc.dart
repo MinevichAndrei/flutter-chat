@@ -1,29 +1,25 @@
 import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chat/src/domain/usecases/get_user.dart';
+import 'package:flutter_chat/src/domain/repositories/user_repository.dart';
 import 'package:flutter_chat/src/presentation/bloc/user_bloc/user_state.dart';
 import 'package:flutter_chat/src/presentation/bloc/user_bloc/users_event.dart';
 
-class UsersListBloc extends Bloc<UsersEvent, UsersState> {
-  final GetUserByUserName getUser;
-  UsersListBloc({required this.getUser}) : super(UsersLoading());
+class UsersBloc extends Bloc<UsersEvent, UsersState> {
+  final UserRepository userRepository;
+
+  UsersBloc({required this.userRepository}) : super(UsersLoadInProgress());
 
   @override
   Stream<UsersState> mapEventToState(UsersEvent event) async* {
-    if (event is GetUsersEvent) {
-      yield* _mapFetchOneNewsToState(event.username);
-    } else if (event is UsersListUpdated) {
-      yield* _mapUsersUpdateToState(event);
+    if (event is UsersLoaded) {
+      try {
+        final users = this.userRepository.users(event.user);
+        var a = await users.first;
+        yield UsersLoadSuccess(users: a);
+      } catch (_) {
+        yield UsersLoadFailure();
+      }
     }
-  }
-
-  Stream<UsersState> _mapFetchOneNewsToState(String username) async* {
-    yield UsersLoading();
-    getUser(UserParams(username: username))
-        .listen((item) => add(UsersListUpdated(item)));
-  }
-
-  Stream<UsersState> _mapUsersUpdateToState(UsersListUpdated event) async* {
-    yield UsersLoaded(event.userListEntity);
   }
 }

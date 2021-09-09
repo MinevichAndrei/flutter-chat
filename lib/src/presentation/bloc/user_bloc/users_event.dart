@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_chat/src/domain/entities/user_entity.dart';
+import 'package:flutter_chat/src/data/models/user_model.dart';
 
 abstract class UsersEvent extends Equatable {
   const UsersEvent();
@@ -8,17 +8,26 @@ abstract class UsersEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetUsersEvent extends UsersEvent {
-  final String username;
+class UsersLoaded extends UsersEvent {
+  final String user;
 
-  GetUsersEvent({required this.username});
-}
-
-class UsersListUpdated extends UsersEvent {
-  final List<UserEntity> userListEntity;
-
-  const UsersListUpdated(this.userListEntity);
+  const UsersLoaded(this.user);
 
   @override
-  List<Object> get props => [userListEntity];
+  List<Object> get props => [user];
+
+  @override
+  String toString() => 'User for load { todo: $user }';
+}
+
+class UsersAdded extends UsersEvent {
+  final UserModel user;
+
+  const UsersAdded(this.user);
+
+  @override
+  List<Object> get props => [user];
+
+  @override
+  String toString() => 'TodoAdded { todo: $user }';
 }

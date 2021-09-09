@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chat/src/presentation/bloc/user_bloc/user_bloc.dart';
-import 'package:flutter_chat/src/presentation/bloc/user_bloc/users_event.dart';
 import 'package:flutter_chat/src/core/services/shared_preferences_helper.dart';
 import 'package:flutter_chat/src/locator_service.dart';
 import 'package:flutter_chat/src/core/services/auth.dart';
 import 'package:flutter_chat/src/core/services/database.dart';
+import 'package:flutter_chat/src/presentation/bloc/user_bloc/user_bloc.dart';
+import 'package:flutter_chat/src/presentation/bloc/user_bloc/user_state.dart';
+import 'package:flutter_chat/src/presentation/bloc/user_bloc/users_event.dart';
 import 'package:flutter_chat/src/presentation/pages/sign_in.dart';
 import 'package:flutter_chat/src/presentation/widgets/chat_room_list.dart';
 import 'package:flutter_chat/src/presentation/widgets/search_users_list.dart';
@@ -19,7 +20,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool isSearhing = false;
+  late bool isSearhing;
   String? myName = "", myProfilePic = "", myUserName = "", myEmail = "";
   var chatRoomsStream = Stream<QuerySnapshot>.empty();
   TextEditingController searchUserNameEditingController =
@@ -45,14 +46,14 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     onScreenLoaded();
+    isSearhing = false;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<UsersListBloc>(
-      create: (context) => sl<UsersListBloc>(),
-      child: Scaffold(
+    return BlocBuilder<UsersBloc, UsersState>(builder: (context, state) {
+      return Scaffold(
         appBar: AppBar(
           title: Text("Home"),
           actions: [
@@ -79,9 +80,10 @@ class _HomeState extends State<Home> {
                   isSearhing
                       ? GestureDetector(
                           onTap: () {
-                            isSearhing = false;
                             searchUserNameEditingController.text = "";
-                            setState(() {});
+                            setState(() {
+                              isSearhing = false;
+                            });
                           },
                           child: Padding(
                             child: Icon(Icons.arrow_back),
@@ -113,10 +115,11 @@ class _HomeState extends State<Home> {
                           GestureDetector(
                             onTap: () {
                               if (searchUserNameEditingController.text != "") {
-                                sl<UsersListBloc>()
-                                  ..add(GetUsersEvent(
-                                      username: searchUserNameEditingController
-                                          .text));
+                                context.read<UsersBloc>().add(UsersLoaded(
+                                    searchUserNameEditingController.text));
+                                setState(() {
+                                  isSearhing = true;
+                                });
                               }
                             },
                             child: Icon(Icons.search),
@@ -135,7 +138,7 @@ class _HomeState extends State<Home> {
             ],
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

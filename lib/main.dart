@@ -1,7 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat/src/core/services/auth.dart';
+import 'package:flutter_chat/src/locator_service.dart';
+import 'package:flutter_chat/src/presentation/bloc/user_bloc/user_bloc.dart';
 import 'package:flutter_chat/src/presentation/pages/home.dart';
 import 'package:flutter_chat/src/presentation/pages/sign_in.dart';
 
@@ -20,19 +23,22 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Chat',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(),
-      home: FutureBuilder(
-        future: AuthMethods().getCurrentUser(),
-        builder: (context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.hasData) {
-            return Home();
-          } else {
-            return SignIn();
-          }
-        },
+    return BlocProvider(
+      create: (context) => di.sl<UsersBloc>(),
+      child: MaterialApp(
+        title: 'Flutter Chat',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(),
+        home: FutureBuilder(
+          future: AuthMethods().getCurrentUser(),
+          builder: (context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.hasData) {
+              return Home();
+            } else {
+              return SignIn();
+            }
+          },
+        ),
       ),
     );
   }

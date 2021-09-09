@@ -12,24 +12,25 @@ class SearchUsersListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UsersListBloc, UsersState>(builder: (context, state) {
-      print(state.props);
-      if (state is UsersLoading) {
+    return BlocBuilder<UsersBloc, UsersState>(builder: (context, state) {
+      print(state);
+      if (state is UsersLoadInProgress) {
         return Spinner();
-      } else if (state is UsersLoaded) {
+      } else if (state is UsersLoadSuccess) {
+        print(state.users);
         return ListView.builder(
-            itemCount: state.userList.length,
+            itemCount: state.users.length,
             shrinkWrap: true,
             itemBuilder: (context, index) {
               return SearchListUserTileWidget(
-                profileUrl: state.userList[index].profileUrlPic,
-                name: state.userList[index].name,
-                username: state.userList[index].userName,
-                email: state.userList[index].email,
+                profileUrl: state.users[index].imgUrl,
+                name: state.users[index].name,
+                username: state.users[index].username,
+                email: state.users[index].email,
                 myUserName: myUserName,
               );
             });
-      } else if (state is UsersError) {
+      } else if (state is UsersLoadFailure) {
         return Center(
           child: error.ErrorWidget(),
         );

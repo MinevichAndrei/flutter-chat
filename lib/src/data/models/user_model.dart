@@ -1,33 +1,53 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_chat/src/domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
   UserModel({
-    required userName,
+    required username,
     required email,
     required name,
-    required profileUrlPic,
+    required imgUrl,
   }) : super(
           name: name,
-          userName: userName,
+          username: username,
           email: email,
-          profileUrlPic: profileUrlPic,
+          imgUrl: imgUrl,
         );
 
-  factory UserModel.fromJson(QueryDocumentSnapshot doc) {
-    return UserModel(
-      userName: doc['username'],
-      email: doc['email'],
-      name: doc['name'],
-      profileUrlPic: doc['imgUrl'],
-    );
-  }
+  @override
+  int get hashCode =>
+      username.hashCode ^ email.hashCode ^ name.hashCode ^ imgUrl.hashCode;
 
   UserEntity toEntity() {
     return UserEntity(
-        userName: userName,
-        email: email,
-        name: name,
-        profileUrlPic: profileUrlPic);
+      username: username,
+      email: email,
+      name: name,
+      imgUrl: imgUrl,
+    );
+  }
+
+  static UserModel fromEntity(UserEntity entity) {
+    return UserModel(
+      username: entity.username,
+      email: entity.email,
+      name: entity.name,
+      imgUrl: entity.imgUrl,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UserModel &&
+          runtimeType == other.runtimeType &&
+          username == other.username &&
+          email == other.email &&
+          name == other.name &&
+          imgUrl == other.imgUrl;
+
+  @override
+  String toString() {
+    return 'UserModel {username: $username, email: $email, name: $name, imgUrl: $imgUrl}';
   }
 }

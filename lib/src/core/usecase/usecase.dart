@@ -5,3 +5,7 @@ abstract class UseCase<Type, Params> {
 abstract class UseCaseWithoutParams<Type> {
   Stream<Type> call();
 }
+
+abstract class UseCaseSingle<Type, Params> {
+  Type call(Params params);
+}
