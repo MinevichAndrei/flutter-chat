@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_chat/core/services/shared_preferences_helper.dart';
+import 'package:flutter_chat/core/services/local_storage_service.dart';
 
 class DatabaseMethods {
   Future addUserInfoToDB(
@@ -71,7 +71,7 @@ class DatabaseMethods {
   }
 
   Future<Stream<QuerySnapshot>> getChatRooms() async {
-    String? myUsername = await SharedPreferenceHelper().getUserName();
+    String? myUsername = await LocalStorageService().getUserName();
     return FirebaseFirestore.instance
         .collection("chatrooms")
         .orderBy("lastMessageSendTs", descending: true)

@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPreferenceHelper {
+class LocalStorageService {
   static String userIdKey = "USER_KEY";
   static String userNameKey = 'USER_NAME_KEY';
   static String displayNameKey = "USER_DISPLAY_NAME_KEY";
@@ -57,5 +57,11 @@ class SharedPreferenceHelper {
   Future<String?> getUserProfileUrl() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(userProfilePicKey);
+  }
+
+  // remove data
+  Future<bool> removeData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.clear();
   }
 }

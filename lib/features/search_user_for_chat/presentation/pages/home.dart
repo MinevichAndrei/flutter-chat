@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat/core/services/auth.dart';
 import 'package:flutter_chat/core/services/database.dart';
-import 'package:flutter_chat/core/services/shared_preferences_helper.dart';
+import 'package:flutter_chat/core/services/local_storage_service.dart';
 import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/user_bloc.dart';
 import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/user_state.dart';
 import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/users_event.dart';
-import 'package:flutter_chat/features/search_user_for_chat/presentation/pages/sign_in.dart';
+import 'package:flutter_chat/features/sign_in_with_google/presentation/pages/sign_in.dart';
 import 'package:flutter_chat/features/search_user_for_chat/presentation/widgets/chat_room_list.dart';
 import 'package:flutter_chat/features/search_user_for_chat/presentation/widgets/search_users_list.dart';
 
@@ -26,10 +26,10 @@ class _HomeState extends State<Home> {
       TextEditingController();
 
   getMyInfoFromSharedPreference() async {
-    myName = await SharedPreferenceHelper().getDisplayName();
-    myProfilePic = await SharedPreferenceHelper().getUserProfileUrl();
-    myUserName = await SharedPreferenceHelper().getUserName();
-    myEmail = await SharedPreferenceHelper().getUserEmail();
+    myName = await LocalStorageService().getDisplayName();
+    myProfilePic = await LocalStorageService().getUserProfileUrl();
+    myUserName = await LocalStorageService().getUserName();
+    myEmail = await LocalStorageService().getUserEmail();
   }
 
   getChatRooms() async {

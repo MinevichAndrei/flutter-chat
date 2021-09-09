@@ -2,6 +2,9 @@ import 'package:flutter_chat/features/search_user_for_chat/domain/repositories/u
 import 'package:flutter_chat/features/search_user_for_chat/domain/usecases/get_user.dart';
 import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/user_bloc.dart';
 import 'package:flutter_chat/features/search_user_for_chat/data/repositories/user_repository_impl.dart';
+import 'package:flutter_chat/features/sign_in_with_google/data/repositories/user_signin_repository_impl.dart';
+import 'package:flutter_chat/features/sign_in_with_google/domain/repositories/user_signin_repository.dart';
+import 'package:flutter_chat/features/sign_in_with_google/presentation/bloc/sign_in_with_google_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,6 +17,12 @@ Future<void> init() async {
     ),
   );
 
+  sl.registerFactory(
+    () => SignInWithGoogleBloc(
+      userSignInRepository: sl(),
+    ),
+  );
+
   sl.registerLazySingleton(
     () => GetUserByUserName(
       sl(),
@@ -21,6 +30,8 @@ Future<void> init() async {
   );
 
   sl.registerLazySingleton<UserRepository>(() => UserRepositoryImpl());
+  sl.registerLazySingleton<UserSignInRepository>(
+      () => UserSignInRepositoryImpl());
 
   // sl.registerLazySingleton<UserRemoteDataSource>(
   //   () => UserRemoteDataSourceImpl(),

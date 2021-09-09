@@ -9,3 +9,7 @@ abstract class UseCaseWithoutParams<Type> {
 abstract class UseCaseSingle<Type, Params> {
   Type call(Params params);
 }
+
+abstract class UseCaseVoid<Type> {
+  Type call();
+}

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/core/services/database.dart';
-import 'package:flutter_chat/core/services/shared_preferences_helper.dart';
+import 'package:flutter_chat/core/services/local_storage_service.dart';
 import 'package:random_string/random_string.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -18,10 +18,10 @@ class _ChatScreenState extends State<ChatScreen> {
   TextEditingController messageTextEditingController = TextEditingController();
 
   getMyInfoFromSharedPreference() async {
-    myName = await SharedPreferenceHelper().getDisplayName();
-    myProfilePic = await SharedPreferenceHelper().getUserProfileUrl();
-    myUserName = await SharedPreferenceHelper().getUserName();
-    myEmail = await SharedPreferenceHelper().getUserEmail();
+    myName = await LocalStorageService().getDisplayName();
+    myProfilePic = await LocalStorageService().getUserProfileUrl();
+    myUserName = await LocalStorageService().getUserName();
+    myEmail = await LocalStorageService().getUserEmail();
 
     chatRoomId = getChatRoomIdByUsernames(widget.chatWithUsername, myUserName);
   }

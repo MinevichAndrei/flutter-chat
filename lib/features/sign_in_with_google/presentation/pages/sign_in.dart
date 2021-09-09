@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_chat/core/services/auth.dart';
+import 'package:flutter_chat/features/sign_in_with_google/presentation/bloc/sign_in_with_google_bloc.dart';
+import 'package:flutter_chat/features/sign_in_with_google/presentation/bloc/sign_in_with_google_event.dart';
+import 'package:flutter_chat/locator_service.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -48,7 +50,10 @@ class _SignInState extends State<SignIn> {
               'Log In',
               style: TextStyle(color: Colors.blueAccent),
             ),
-            onPressed: () => {AuthMethods().signInWithGoogle(context)},
+            onPressed: () => {
+              sl<SignInWithGoogleBloc>().add(AppStarted()),
+              //AuthMethods().signInWithGoogle(context)
+            },
           ),
         ));
 
