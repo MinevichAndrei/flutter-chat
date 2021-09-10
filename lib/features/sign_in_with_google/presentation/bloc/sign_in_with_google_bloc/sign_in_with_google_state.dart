@@ -22,3 +22,7 @@ class Authenticated extends AuthenticationState {
 }
 
 class Unauthenticated extends AuthenticationState {}
+
+class SignOuted extends AuthenticationState {}
+
+class UnSignOut extends AuthenticationState {}

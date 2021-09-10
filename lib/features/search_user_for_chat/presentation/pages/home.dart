@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chat/core/services/auth.dart';
 import 'package:flutter_chat/core/services/database.dart';
 import 'package:flutter_chat/core/services/local_storage_service.dart';
 import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/user_bloc.dart';
 import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/user_state.dart';
 import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/users_event.dart';
-import 'package:flutter_chat/features/sign_in_with_google/presentation/pages/sign_in.dart';
+import 'package:flutter_chat/features/sign_in_with_google/presentation/bloc/sign_in_with_google_bloc/sign_in_with_google_bloc.dart';
+import 'package:flutter_chat/features/sign_in_with_google/presentation/bloc/sign_in_with_google_bloc/sign_in_with_google_event.dart';
 import 'package:flutter_chat/features/search_user_for_chat/presentation/widgets/chat_room_list.dart';
 import 'package:flutter_chat/features/search_user_for_chat/presentation/widgets/search_users_list.dart';
+import 'package:flutter_chat/main_application_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -30,6 +31,7 @@ class _HomeState extends State<Home> {
     myProfilePic = await LocalStorageService().getUserProfileUrl();
     myUserName = await LocalStorageService().getUserName();
     myEmail = await LocalStorageService().getUserEmail();
+    print("$myName, $myProfilePic, $myUserName, $myEmail");
   }
 
   getChatRooms() async {
@@ -52,16 +54,19 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UsersBloc, UsersState>(builder: (context, state) {
+      print(state);
+      print("$myName, $myProfilePic, $myUserName, $myEmail");
       return Scaffold(
         appBar: AppBar(
           title: Text("Home"),
           actions: [
             InkWell(
               onTap: () {
-                AuthMethods().signOut().then((s) {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => SignIn()));
-                });
+                context.read<SignInWithGoogleBloc>().add(AppExit());
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MainApplicationScreen()));
               },
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 16),

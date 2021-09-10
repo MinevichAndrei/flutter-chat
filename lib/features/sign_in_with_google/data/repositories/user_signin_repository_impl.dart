@@ -51,8 +51,13 @@ class UserSignInRepositoryImpl implements UserSignInRepository {
   }
 
   @override
-  Future signOut() async {
-    await LocalStorageService().removeData();
-    return await _firebaseAuth.signOut();
+  Future<bool> signOut() async {
+    try {
+      await LocalStorageService().removeData();
+      await _firebaseAuth.signOut();
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

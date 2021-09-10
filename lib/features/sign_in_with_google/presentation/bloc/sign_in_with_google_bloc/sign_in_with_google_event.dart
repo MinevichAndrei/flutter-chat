@@ -6,3 +6,8 @@ class AppStarted extends AuthenticationEvent {
   @override
   List<Object> get props => [];
 }
+
+class AppExit extends AuthenticationEvent {
+  @override
+  List<Object> get props => [];
+}
