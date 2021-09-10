@@ -2,4 +2,5 @@ import 'package:flutter_chat/features/search_user_for_chat/domain/entities/user_
 
 abstract class UserRepository {
   Stream<List<UserEntity>> users(String username);
+  Future<UserEntity> getUser(String username);
 }

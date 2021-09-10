@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/user_bloc.dart';
+import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_info_bloc/user_info_bloc.dart';
 import 'package:flutter_chat/features/sign_in_with_google/presentation/bloc/sign_in_with_google_bloc/sign_in_with_google_bloc.dart';
 import 'package:flutter_chat/features/sign_in_with_google/presentation/bloc/sign_in_with_google_bloc/sign_in_with_google_event.dart';
 
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<SignInWithGoogleBloc>(
           create: (context) => di.sl<SignInWithGoogleBloc>()..add(AppStarted()),
+        ),
+        BlocProvider<UsersInfoBloc>(
+          create: (context) => di.sl<UsersInfoBloc>(),
         ),
       ],
       child: MaterialApp(

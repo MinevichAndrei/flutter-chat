@@ -16,4 +16,15 @@ class UserRepositoryImpl implements UserRepository {
           .toList();
     });
   }
+
+  @override
+  Future<UserEntity> getUser(String username) {
+    return FirebaseFirestore.instance
+        .collection("users")
+        .where("username", isEqualTo: username)
+        .get()
+        .then((value) {
+      return UserModel.fromEntity(UserEntity.fromQuerySnapshot(value));
+    });
+  }
 }

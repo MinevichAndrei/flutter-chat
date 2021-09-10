@@ -46,6 +46,16 @@ class UserEntity extends Equatable {
     );
   }
 
+  static UserEntity fromQuerySnapshot(
+      QuerySnapshot<Map<String, dynamic>> snap) {
+    return UserEntity(
+      username: snap.docs[0]['username'],
+      email: snap.docs[0]['email'],
+      name: snap.docs[0]['name'],
+      imgUrl: snap.docs[0]['imgUrl'],
+    );
+  }
+
   Map<String, Object> toDocument() {
     return {
       'username': username,

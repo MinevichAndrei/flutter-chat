@@ -62,7 +62,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
         DatabaseMethods().updateLastMessageSend(chatRoomId, lastMessageInfoMap);
 
-        if (sendClicked) {
+        if (!sendClicked) {
           // remove the text in the message input field
           messageTextEditingController.text = "";
 
@@ -79,22 +79,26 @@ class _ChatScreenState extends State<ChatScreen> {
           sendByMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(24),
-              bottomRight: sendByMe ? Radius.circular(0) : Radius.circular(24),
-              topRight: Radius.circular(24),
-              bottomLeft: sendByMe ? Radius.circular(24) : Radius.circular(0),
+            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(24),
+                bottomRight:
+                    sendByMe ? Radius.circular(0) : Radius.circular(24),
+                topRight: Radius.circular(24),
+                bottomLeft: sendByMe ? Radius.circular(24) : Radius.circular(0),
+              ),
+              color: Colors.blue,
             ),
-            color: Colors.blue,
-          ),
-          padding: EdgeInsets.all(16),
-          child: Text(
-            message,
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
+            padding: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Text(
+                  message,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            )),
       ],
     );
   }
@@ -155,9 +159,9 @@ class _ChatScreenState extends State<ChatScreen> {
                     Expanded(
                         child: TextField(
                       controller: messageTextEditingController,
-                      onChanged: (value) {
-                        addMessage(false);
-                      },
+                      // onChanged: (value) {
+                      //   addMessage(false);
+                      // },
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         border: InputBorder.none,
@@ -170,7 +174,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     )),
                     GestureDetector(
                       onTap: () {
-                        addMessage(true);
+                        addMessage(false);
                       },
                       child: Icon(
                         Icons.send,

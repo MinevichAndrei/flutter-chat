@@ -54,8 +54,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UsersBloc, UsersState>(builder: (context, state) {
-      print(state);
-      print("$myName, $myProfilePic, $myUserName, $myEmail");
       return Scaffold(
         appBar: AppBar(
           title: Text("Home"),

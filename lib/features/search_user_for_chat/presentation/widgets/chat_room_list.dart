@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat/features/search_user_for_chat/presentation/pages/chat_room_list_tile.dart';
+import 'package:flutter_chat/features/search_user_for_chat/presentation/widgets/chat_room_list_tile.dart';
 
 class ChatRoomListWidget extends StatelessWidget {
   final Stream<QuerySnapshot> chatRoomsStream;
@@ -18,7 +18,8 @@ class ChatRoomListWidget extends StatelessWidget {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   DocumentSnapshot ds = snapshot.data!.docs[index];
-                  return ChatRoomListTile(ds["lastMessage"], ds.id, myUserName);
+                  return ChatRoomListTileWidget(
+                      ds["lastMessage"], ds.id, myUserName);
                 },
               )
             : Center(
