@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_chat/features/chat/data/models/user_model.dart';
 
 abstract class UsersEvent extends Equatable {
   const UsersEvent();
@@ -15,19 +14,6 @@ class UsersLoaded extends UsersEvent {
 
   @override
   List<Object> get props => [user];
-
-  @override
-  String toString() => 'User for load { todo: $user }';
 }
 
-class UsersAdded extends UsersEvent {
-  final UserModel user;
-
-  const UsersAdded(this.user);
-
-  @override
-  List<Object> get props => [user];
-
-  @override
-  String toString() => 'TodoAdded { todo: $user }';
-}
+class UserLoadedFromLocalStorage extends UsersEvent {}

@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_chat/core/usecase/usecase.dart';
 import 'package:flutter_chat/features/chat/domain/entities/user_entity.dart';
-import 'package:flutter_chat/features/chat/domain/repositories/user_repository.dart';
+import 'package:flutter_chat/features/chat/domain/repositories/chat_repository.dart';
 
 class GetUserByUserName extends UseCase<List<UserEntity>, UserParams> {
-  final UserRepository userRepository;
+  final ChatRepository userRepository;
 
   GetUserByUserName(this.userRepository);
 

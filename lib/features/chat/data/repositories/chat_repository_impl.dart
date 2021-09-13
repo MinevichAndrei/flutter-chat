@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_chat/core/services/local_storage_service.dart';
 import 'package:flutter_chat/features/chat/data/models/chat_model.dart';
 import 'package:flutter_chat/features/chat/data/models/message_model.dart';
 import 'package:flutter_chat/features/chat/data/models/user_model.dart';
 import 'package:flutter_chat/features/chat/domain/entities/chat_entity.dart';
 import 'package:flutter_chat/features/chat/domain/entities/message_entity.dart';
 import 'package:flutter_chat/features/chat/domain/entities/user_entity.dart';
-import 'package:flutter_chat/features/chat/domain/repositories/user_repository.dart';
+import 'package:flutter_chat/features/chat/domain/repositories/chat_repository.dart';
 
-class UserRepositoryImpl implements UserRepository {
+class ChatRepositoryImpl implements ChatRepository {
   @override
   Stream<List<UserEntity>> users(String username) {
     return FirebaseFirestore.instance
@@ -100,5 +101,20 @@ class UserRepositoryImpl implements UserRepository {
         .collection("chatrooms")
         .doc(chatRoomId)
         .update(lastMessageInfoMap);
+  }
+
+  @override
+  Future<UserEntity> getUserFromLocalStorage() async {
+    final String? myName = await LocalStorageService().getDisplayName();
+    final String? myProfilePic =
+        await LocalStorageService().getUserProfileUrl();
+    final String? myUserName = await LocalStorageService().getUserName();
+    final String? myEmail = await LocalStorageService().getUserEmail();
+
+    return UserEntity(
+        username: myUserName!,
+        email: myEmail!,
+        name: myName!,
+        imgUrl: myProfilePic!);
   }
 }

@@ -13,6 +13,7 @@ class MainApplicationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SignInWithGoogleBloc, SignInWithGoogleState>(
       builder: (context, state) {
+        print(state);
         if (state is SignInWithGoogleStateSuccess) {
           return Home();
         } else if (state is SignOuted) {

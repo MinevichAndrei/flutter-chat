@@ -13,11 +13,9 @@ class SearchUsersListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UsersBloc, UsersState>(builder: (context, state) {
-      print(state);
       if (state is UsersLoadInProgress) {
         return Spinner();
       } else if (state is UsersLoadSuccess) {
-        print(state.users);
         return ListView.builder(
             itemCount: state.users.length,
             shrinkWrap: true,

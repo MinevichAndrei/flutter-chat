@@ -17,9 +17,15 @@ class UsersLoadSuccess extends UsersState {
 
   @override
   List<Object> get props => [users];
+}
+
+class UserLoadFromLocalStorageSuccess extends UsersState {
+  final UserEntity userFromLocalStorage;
+
+  const UserLoadFromLocalStorageSuccess({required this.userFromLocalStorage});
 
   @override
-  String toString() => 'UsersLoadSuccess { todos: $users }';
+  List<Object> get props => [userFromLocalStorage];
 }
 
 class UsersLoadFailure extends UsersState {}
