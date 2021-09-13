@@ -17,7 +17,6 @@ class ChatRoomListTileWidget extends StatelessWidget {
     context.read<UsersInfoBloc>().add(UsersInfoLoaded(username));
     return BlocBuilder<UsersInfoBloc, UsersInfoState>(
         builder: (context, state) {
-      print(state);
       if (state is UsersInfoLoadInProgress) {
         return Spinner();
       } else if (state is UsersInfoLoadSuccess) {

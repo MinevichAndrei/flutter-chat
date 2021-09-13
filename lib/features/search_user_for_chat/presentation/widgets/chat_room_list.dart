@@ -18,6 +18,8 @@ class ChatRoomListWidget extends StatelessWidget {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   DocumentSnapshot ds = snapshot.data!.docs[index];
+                  print("id:");
+                  print(ds.data());
                   return ChatRoomListTileWidget(
                       ds["lastMessage"], ds.id, myUserName);
                 },

@@ -1,7 +1,6 @@
-import 'package:flutter_chat/features/search_user_for_chat/domain/repositories/user_repository.dart';
-import 'package:flutter_chat/features/search_user_for_chat/domain/usecases/get_user.dart';
-import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/user_bloc.dart';
 import 'package:flutter_chat/features/search_user_for_chat/data/repositories/user_repository_impl.dart';
+import 'package:flutter_chat/features/search_user_for_chat/domain/repositories/user_repository.dart';
+import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/user_bloc.dart';
 import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_info_bloc/user_info_bloc.dart';
 import 'package:flutter_chat/features/sign_in_with_google/data/repositories/user_signin_repository_impl.dart';
 import 'package:flutter_chat/features/sign_in_with_google/domain/repositories/user_signin_repository.dart';

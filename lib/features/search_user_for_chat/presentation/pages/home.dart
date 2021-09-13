@@ -6,10 +6,10 @@ import 'package:flutter_chat/core/services/local_storage_service.dart';
 import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/user_bloc.dart';
 import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/user_state.dart';
 import 'package:flutter_chat/features/search_user_for_chat/presentation/bloc/user_bloc/users_event.dart';
-import 'package:flutter_chat/features/sign_in_with_google/presentation/bloc/sign_in_with_google_bloc/sign_in_with_google_bloc.dart';
-import 'package:flutter_chat/features/sign_in_with_google/presentation/bloc/sign_in_with_google_bloc/sign_in_with_google_event.dart';
 import 'package:flutter_chat/features/search_user_for_chat/presentation/widgets/chat_room_list.dart';
 import 'package:flutter_chat/features/search_user_for_chat/presentation/widgets/search_users_list.dart';
+import 'package:flutter_chat/features/sign_in_with_google/presentation/bloc/sign_in_with_google_bloc/sign_in_with_google_bloc.dart';
+import 'package:flutter_chat/features/sign_in_with_google/presentation/bloc/sign_in_with_google_bloc/sign_in_with_google_event.dart';
 import 'package:flutter_chat/main_application_screen.dart';
 
 class Home extends StatefulWidget {
