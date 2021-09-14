@@ -34,7 +34,7 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future addMessage(String chatRoomId, String messageId,
+  Future<void> addMessage(String chatRoomId, String messageId,
       Map<String, dynamic> messageInfoMap) async {
     FirebaseFirestore.instance
         .collection("chatrooms")
