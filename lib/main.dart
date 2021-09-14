@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat/features/chat/presentation/bloc/chat_bloc/chat_bloc.dart';
+import 'package:flutter_chat/features/chat/presentation/bloc/chat_room_messages_bloc/chat_room_messages_bloc.dart';
+import 'package:flutter_chat/features/chat/presentation/bloc/create_chat_bloc/create_chat_bloc.dart';
 import 'package:flutter_chat/features/chat/presentation/bloc/search_user_bloc/search_user_bloc.dart';
 import 'package:flutter_chat/features/chat/presentation/bloc/user_from_local_storage_bloc/user_from_local_storage_bloc.dart';
 import 'package:flutter_chat/features/chat/presentation/bloc/user_info_bloc/user_info_bloc.dart';
@@ -39,6 +41,10 @@ class MyApp extends StatelessWidget {
           create: (context) => di.sl<UsersInfoBloc>(),
         ),
         BlocProvider<ChatsBloc>(create: (context) => di.sl<ChatsBloc>()),
+        BlocProvider<CreateChatBloc>(
+            create: (context) => di.sl<CreateChatBloc>()),
+        BlocProvider<ChatRoomMessagesBloc>(
+            create: (context) => di.sl<ChatRoomMessagesBloc>()),
       ],
       child: MaterialApp(
           title: 'Flutter Chat',

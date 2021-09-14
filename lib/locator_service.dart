@@ -1,6 +1,8 @@
 import 'package:flutter_chat/features/chat/data/repositories/chat_repository_impl.dart';
 import 'package:flutter_chat/features/chat/domain/repositories/chat_repository.dart';
 import 'package:flutter_chat/features/chat/presentation/bloc/chat_bloc/chat_bloc.dart';
+import 'package:flutter_chat/features/chat/presentation/bloc/chat_room_messages_bloc/chat_room_messages_bloc.dart';
+import 'package:flutter_chat/features/chat/presentation/bloc/create_chat_bloc/create_chat_bloc.dart';
 import 'package:flutter_chat/features/chat/presentation/bloc/search_user_bloc/search_user_bloc.dart';
 import 'package:flutter_chat/features/chat/presentation/bloc/user_from_local_storage_bloc/user_from_local_storage_bloc.dart';
 import 'package:flutter_chat/features/chat/presentation/bloc/user_info_bloc/user_info_bloc.dart';
@@ -31,15 +33,27 @@ Future<void> init() async {
     ),
   );
 
-  sl.registerLazySingleton(
+  sl.registerFactory(
     () => UsersInfoBloc(
       chatRepository: sl(),
     ),
   );
 
-  sl.registerLazySingleton(
+  sl.registerFactory(
     () => ChatsBloc(
       userRepository: sl(),
+    ),
+  );
+
+  sl.registerFactory(
+    () => CreateChatBloc(
+      chatRepository: sl(),
+    ),
+  );
+
+  sl.registerFactory(
+    () => ChatRoomMessagesBloc(
+      chatRepository: sl(),
     ),
   );
 

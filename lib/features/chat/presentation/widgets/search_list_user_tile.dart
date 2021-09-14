@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat/core/services/database.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_chat/core/services/chat_room_id_service.dart';
+import 'package:flutter_chat/features/chat/presentation/bloc/create_chat_bloc/create_chat_bloc.dart';
+import 'package:flutter_chat/features/chat/presentation/bloc/create_chat_bloc/create_chat_event.dart';
+import 'package:flutter_chat/features/chat/presentation/bloc/create_chat_bloc/create_chat_state.dart';
 import 'package:flutter_chat/features/chat/presentation/pages/chat_screen.dart';
 
 class SearchListUserTileWidget extends StatelessWidget {
@@ -14,48 +18,45 @@ class SearchListUserTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(profileUrl);
-    return GestureDetector(
-      onTap: () {
-        var chatRoomId = getChatRoomIdByUsernames(myUserName, username);
-        Map<String, dynamic> chatRoomInfoMap = {
-          "users": [myUserName, username],
-        };
-
-        DatabaseMethods().createChatRoom(chatRoomId, chatRoomInfoMap);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>
-                ChatScreen(chatWithUsername: username, name: name),
+    return BlocBuilder<CreateChatBloc, CreateChatState>(
+      builder: (context, state) {
+        return GestureDetector(
+          onTap: () {
+            var chatRoomId = ChatRoomIdService()
+                .getChatRoomIdByUsernames(myUserName, username);
+            Map<String, dynamic> chatRoomInfoMap = {
+              "users": [myUserName, username],
+            };
+            context.read<CreateChatBloc>().add(CreateChat(
+                chatRoomId: chatRoomId, chatRoomInfoMap: chatRoomInfoMap));
+            //DatabaseMethods().createChatRoom(chatRoomId, chatRoomInfoMap);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    ChatScreen(chatWithUsername: username, name: name),
+              ),
+            );
+          },
+          child: Row(
+            children: [
+              CircleAvatar(
+                backgroundImage: NetworkImage(profileUrl),
+              ),
+              SizedBox(
+                width: 12,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(name),
+                  Text(email),
+                ],
+              ),
+            ],
           ),
         );
       },
-      child: Row(
-        children: [
-          CircleAvatar(
-            backgroundImage: NetworkImage(profileUrl),
-          ),
-          SizedBox(
-            width: 12,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(name),
-              Text(email),
-            ],
-          ),
-        ],
-      ),
     );
-  }
-
-  getChatRoomIdByUsernames(String a, String b) {
-    if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
-      return "$b\_$a";
-    } else {
-      return "$a\_$b";
-    }
   }
 }

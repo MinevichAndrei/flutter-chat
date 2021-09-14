@@ -4,24 +4,11 @@ import 'package:flutter_chat/features/chat/presentation/bloc/search_user_bloc/se
 import 'package:flutter_chat/features/chat/presentation/bloc/search_user_bloc/search_users_event.dart';
 import 'package:flutter_chat/features/chat/presentation/widgets/search_users_list.dart';
 
-class SearchScreen extends StatefulWidget {
+class SearchScreen extends StatelessWidget {
   final String myUserName;
-  const SearchScreen({Key? key, required this.myUserName}) : super(key: key);
-
-  @override
-  _SearchScreenState createState() => _SearchScreenState();
-}
-
-class _SearchScreenState extends State<SearchScreen> {
-  late bool isSearhing;
-  TextEditingController searchUserNameEditingController =
+  final TextEditingController searchUserNameEditingController =
       TextEditingController();
-
-  @override
-  void initState() {
-    isSearhing = false;
-    super.initState();
-  }
+  SearchScreen({Key? key, required this.myUserName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,20 +21,6 @@ class _SearchScreenState extends State<SearchScreen> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              isSearhing
-                  ? GestureDetector(
-                      onTap: () {
-                        searchUserNameEditingController.text = "";
-                        setState(() {
-                          isSearhing = false;
-                        });
-                      },
-                      child: Padding(
-                        child: Icon(Icons.arrow_back),
-                        padding: EdgeInsets.only(right: 12),
-                      ),
-                    )
-                  : Container(),
               Expanded(
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 16),
@@ -74,9 +47,6 @@ class _SearchScreenState extends State<SearchScreen> {
                           if (searchUserNameEditingController.text != "") {
                             context.read<SearchUserBloc>().add(SearchUser(
                                 searchUserNameEditingController.text));
-                            setState(() {
-                              isSearhing = true;
-                            });
                           }
                         },
                         child: Icon(Icons.search),
@@ -87,7 +57,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ],
           ),
-          SearchUsersListWidget(myUserName: widget.myUserName),
+          SearchUsersListWidget(myUserName: myUserName),
         ],
       ),
     );
