@@ -21,4 +21,9 @@ class ChatsLoadSuccess extends ChatsState {
   List<Object> get props => [chats];
 }
 
-class ChatsLoadFailure extends ChatsState {}
+class ChatsLoadFailure extends ChatsState {
+  final String message;
+  ChatsLoadFailure({required this.message});
+  @override
+  List<Object> get props => [message];
+}

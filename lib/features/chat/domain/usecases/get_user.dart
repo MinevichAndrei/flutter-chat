@@ -9,7 +9,7 @@ class GetUserByUserName extends UseCase<List<UserEntity>, UserParams> {
   GetUserByUserName(this.userRepository);
 
   Stream<List<UserEntity>> call(UserParams params) {
-    return userRepository.users(params.username);
+    return userRepository.searchUser(params.username);
   }
 }
 

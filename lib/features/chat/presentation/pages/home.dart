@@ -1,54 +1,21 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat/common/widgets/spinner.dart';
-import 'package:flutter_chat/core/services/database.dart';
-import 'package:flutter_chat/features/chat/presentation/bloc/user_bloc/user_bloc.dart';
-import 'package:flutter_chat/features/chat/presentation/bloc/user_bloc/user_state.dart';
-import 'package:flutter_chat/features/chat/presentation/bloc/user_bloc/users_event.dart';
+import 'package:flutter_chat/features/chat/presentation/bloc/user_from_local_storage_bloc/user_from_local_storage_bloc.dart';
+import 'package:flutter_chat/features/chat/presentation/bloc/user_from_local_storage_bloc/user_from_local_storage_event.dart';
+import 'package:flutter_chat/features/chat/presentation/bloc/user_from_local_storage_bloc/user_from_local_storage_state.dart';
 import 'package:flutter_chat/features/chat/presentation/pages/search_screen.dart';
 import 'package:flutter_chat/features/chat/presentation/widgets/chat_room_list.dart';
 import 'package:flutter_chat/features/chat/presentation/widgets/sign_out_widget.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
-
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  String? myName = "", myProfilePic = "", myUserName = "", myEmail = "";
-  var chatRoomsStream = Stream<QuerySnapshot>.empty();
-
-  // getMyInfoFromSharedPreference() async {
-  //   myName = await LocalStorageService().getDisplayName();
-  //   myProfilePic = await LocalStorageService().getUserProfileUrl();
-  //   myUserName = await LocalStorageService().getUserName();
-  //   myEmail = await LocalStorageService().getUserEmail();
-  // }
-
-  getChatRooms() async {
-    chatRoomsStream = await DatabaseMethods().getChatRooms();
-    setState(() {});
-  }
-
-  onScreenLoaded() async {
-    // await getMyInfoFromSharedPreference();
-    getChatRooms();
-  }
-
-  @override
-  void initState() {
-    onScreenLoaded();
-    super.initState();
-  }
-
+class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<UsersBloc>(context)..add(UserLoadedFromLocalStorage());
-    return BlocBuilder<UsersBloc, UsersState>(builder: (context, state) {
-      if (state is UserLoadFromLocalStorageSuccess) {
+    BlocProvider.of<UserFromLocalStorageBloc>(context)
+      ..add(UserLoadedFromLocalStorage());
+    return BlocBuilder<UserFromLocalStorageBloc, UserFromLocalStorageState>(
+        builder: (context, state) {
+      if (state is UserFromLocalStorageLoadSuccess) {
         return Scaffold(
           appBar: AppBar(
             title: Text("Home"),
@@ -64,13 +31,12 @@ class _HomeState extends State<Home> {
                     onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SearchScreen(),
+                            builder: (context) =>
+                                SearchScreen(myUserName: state.user.username),
                           ),
                         ),
                     child: Text("Поиск")),
-                ChatRoomListWidget(
-                    chatRoomsStream: chatRoomsStream,
-                    myUserName: state.userFromLocalStorage.username)
+                ChatRoomListWidget(myUserName: state.user.username)
               ],
             ),
           ),

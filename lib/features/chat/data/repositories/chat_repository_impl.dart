@@ -10,7 +10,7 @@ import 'package:flutter_chat/features/chat/domain/repositories/chat_repository.d
 
 class ChatRepositoryImpl implements ChatRepository {
   @override
-  Stream<List<UserEntity>> users(String username) {
+  Stream<List<UserEntity>> searchUser(String username) {
     return FirebaseFirestore.instance
         .collection("users")
         .where("username", isEqualTo: username)
@@ -23,7 +23,7 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<UserEntity> getUser(String username) {
+  Future<UserEntity> getUserInfo(String username) {
     return FirebaseFirestore.instance
         .collection("users")
         .where("username", isEqualTo: username)
@@ -89,7 +89,8 @@ class ChatRepositoryImpl implements ChatRepository {
         .snapshots()
         .map((snapshot) {
       return snapshot.docs
-          .map((doc) => ChatModel.fromEntity(ChatEntity.fromJson(doc.data())))
+          .map((doc) =>
+              ChatModel.fromEntity(ChatEntity.fromDocumentSnapshot(doc)))
           .toList();
     });
   }

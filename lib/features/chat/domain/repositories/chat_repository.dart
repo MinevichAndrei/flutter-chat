@@ -3,8 +3,8 @@ import 'package:flutter_chat/features/chat/domain/entities/message_entity.dart';
 import 'package:flutter_chat/features/chat/domain/entities/user_entity.dart';
 
 abstract class ChatRepository {
-  Stream<List<UserEntity>> users(String username);
-  Future<UserEntity> getUser(String username);
+  Stream<List<UserEntity>> searchUser(String username);
+  Future<UserEntity> getUserInfo(String username);
   Future addMessage(
       String chatRoomId, String messageId, Map<String, dynamic> messageInfoMap);
   Future<void> updateLastMessageSend(
