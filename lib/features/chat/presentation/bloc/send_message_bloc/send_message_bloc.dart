@@ -24,9 +24,10 @@ class SendMessageBloc extends Bloc<SendMessageEvent, SendMessageState> {
   Stream<SendMessageState> _mapChatRoomMessagesEventToState(String chatRoomId,
       String messageId, Map<String, dynamic> messageInfoMap) async* {
     try {
-      final result =
-          this.chatRepository.addMessage(chatRoomId, messageId, messageInfoMap);
-      yield SendMessageLoadSuccess(result: result);
+      await this
+          .chatRepository
+          .addMessage(chatRoomId, messageId, messageInfoMap);
+      yield SendMessageLoadSuccess();
     } catch (_) {
       yield SendMessageLoadFailure();
     }
@@ -35,10 +36,10 @@ class SendMessageBloc extends Bloc<SendMessageEvent, SendMessageState> {
   Stream<SendMessageState> _mapUpdateLastMessageToState(
       String chatRoomId, Map<String, dynamic> lastMessageInfoMap) async* {
     try {
-      final result = this
+      await this
           .chatRepository
           .updateLastMessageSend(chatRoomId, lastMessageInfoMap);
-      yield UpdateLastMessageLoadSuccess(message: result.toString());
+      yield UpdateLastMessageLoadSuccess();
     } catch (_) {
       yield SendMessageLoadFailure();
     }
