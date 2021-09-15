@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
             create: (context) => di.sl<SendMessageBloc>()),
       ],
       child: MaterialApp(
-          title: 'Flutter Chat',
+          title: 'Tiny Chat',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(),
           home: MainApplicationScreen()),
