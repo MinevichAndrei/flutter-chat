@@ -27,6 +27,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_native_splash: ^1.2.3
 
 
 flutter:
@@ -36,6 +37,34 @@ flutter_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/icon/icon.png"
+
+flutter_native_splash:
+
+  color: "#ffffff"
+  #background_image: "assets/background.png"
+  image: assets/splash.png
+
+  #color_dark: "#042a49"
+  #background_image_dark: "assets/dark-background.png"
+  #image_dark: assets/splash-invert.png
+
+  android: true
+  ios: true
+  
+  #bottom, center, 
+  # center_horizontal, center_vertical, clip_horizontal, clip_vertical, end, fill, fill_horizontal,
+  # fill_vertical, left, right, start, or top.
+  android_gravity: center
+  
+  # ios_content_mode can be one of the following iOS UIView.ContentMode (see 
+  # https://developer.apple.com/documentation/uikit/uiview/contentmode): scaleToFill, 
+  # scaleAspectFit, scaleAspectFill, center, top, bottom, left, right, topLeft, topRight, 
+  # bottomLeft, or bottomRight.
+  ios_content_mode: center
+
+  fullscreen: true
+  
+  #android12: true
 
   # To add assets to your application, add an assets section, like this:
   # assets:
