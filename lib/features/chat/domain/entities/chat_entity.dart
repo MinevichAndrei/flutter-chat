@@ -37,6 +37,19 @@ class ChatEntity extends Equatable {
     );
   }
 
+  static ChatEntity fromQuerySnapshot(
+      QuerySnapshot<Map<String, dynamic>> snap) {
+    return ChatEntity(
+      id: snap.docs[0].id,
+      lastMessage: snap.docs[0]['lastMessage'],
+      lastMessageSendBy: snap.docs[0]['lastMessageSendBy'],
+      lastMessageSendTs: snap.docs[0]['lastMessageSendTs'],
+      users: (snap.docs[0]['users'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+    );
+  }
+
   @override
   List<Object?> get props => [
         lastMessage,

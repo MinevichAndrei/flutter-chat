@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat/features/chat/presentation/bloc/chat_room_messages_bloc/chat_room_messages_bloc.dart';
@@ -70,7 +71,7 @@ class _TextInputWidgetState extends State<TextInputWidget> {
     if (messageTextEditingController.text != "") {
       String message = messageTextEditingController.text;
 
-      var lastMessageTs = DateTime.now();
+      var lastMessageTs = FieldValue.serverTimestamp();
       Map<String, dynamic> messageInfoMap = {
         "message": message,
         "sendBy": myUserName,

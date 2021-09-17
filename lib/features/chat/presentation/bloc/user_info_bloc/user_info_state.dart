@@ -17,9 +17,6 @@ class UsersInfoLoadSuccess extends UsersInfoState {
 
   @override
   List<Object> get props => [user];
-
-  @override
-  String toString() => 'UsersLoadSuccess { todos: $user }';
 }
 
 class UsersInfoLoadFailure extends UsersInfoState {}

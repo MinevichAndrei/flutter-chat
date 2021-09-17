@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chat/common/widgets/spinner.dart';
 import 'package:flutter_chat/common/widgets/error_widget.dart' as error;
 import 'package:flutter_chat/features/chat/presentation/bloc/search_user_bloc/search_user_bloc.dart';
 import 'package:flutter_chat/features/chat/presentation/bloc/search_user_bloc/search_user_state.dart';
