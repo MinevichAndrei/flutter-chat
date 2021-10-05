@@ -21,7 +21,6 @@ class UsersInfoBloc extends Bloc<UsersInfoEvent, UsersInfoState> {
   Stream<UsersInfoState> mapUserLoadedEventToState(String username) async* {
     try {
       final user = await this.chatRepository.getUserInfo(username);
-      //user.asStream().listen((item) => add(ReceiveEvent(item)));
       yield UsersInfoLoadSuccess(user: user);
     } catch (_) {
       yield UsersInfoLoadFailure();

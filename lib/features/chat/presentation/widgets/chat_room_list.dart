@@ -5,8 +5,6 @@ import 'package:flutter_chat/features/chat/domain/entities/chat_entity.dart';
 import 'package:flutter_chat/features/chat/presentation/bloc/chat_bloc/chat_bloc.dart';
 import 'package:flutter_chat/features/chat/presentation/bloc/chat_bloc/chat_event.dart';
 import 'package:flutter_chat/features/chat/presentation/bloc/chat_bloc/chat_state.dart';
-import 'package:flutter_chat/features/chat/presentation/bloc/user_info_bloc/user_info_bloc.dart';
-import 'package:flutter_chat/features/chat/presentation/bloc/user_info_bloc/user_info_event.dart';
 import 'package:flutter_chat/features/chat/presentation/widgets/chat_room_list_tile.dart';
 
 class ChatRoomListWidget extends StatefulWidget {
@@ -18,6 +16,7 @@ class ChatRoomListWidget extends StatefulWidget {
 }
 
 class _ChatRoomListWidgetState extends State<ChatRoomListWidget> {
+  String username = "";
   @override
   void initState() {
     BlocProvider.of<ChatsBloc>(context)..add(AllChatsLoaded(widget.myUserName));
@@ -36,8 +35,6 @@ class _ChatRoomListWidgetState extends State<ChatRoomListWidget> {
             shrinkWrap: true,
             itemBuilder: (context, index) {
               ChatEntity ds = state.chats[index];
-              // String username =
-              //     ds.id.replaceAll(widget.myUserName, "").replaceAll("_", "");
               return ChatRoomListTileWidget(
                   ds.lastMessage, ds.id, widget.myUserName);
             },

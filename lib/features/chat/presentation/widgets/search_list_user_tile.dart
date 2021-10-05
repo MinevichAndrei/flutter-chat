@@ -29,7 +29,6 @@ class SearchListUserTileWidget extends StatelessWidget {
             };
             context.read<CreateChatBloc>().add(CreateChat(
                 chatRoomId: chatRoomId, chatRoomInfoMap: chatRoomInfoMap));
-            //DatabaseMethods().createChatRoom(chatRoomId, chatRoomInfoMap);
             Navigator.push(
               context,
               MaterialPageRoute(

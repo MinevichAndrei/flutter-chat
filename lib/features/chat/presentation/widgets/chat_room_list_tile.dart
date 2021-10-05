@@ -22,7 +22,6 @@ class _ChatRoomListTileWidgetState extends State<ChatRoomListTileWidget> {
   void initState() {
     username =
         widget.chatRoomId.replaceAll(widget.myUsername, "").replaceAll("_", "");
-    print(username);
     getUser();
     super.initState();
   }
