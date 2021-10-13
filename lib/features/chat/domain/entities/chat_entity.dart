@@ -7,6 +7,8 @@ class ChatEntity extends Equatable {
   final String lastMessageSendBy;
   final Timestamp lastMessageSendTs;
   final List<String> users;
+  final String name;
+  final String image;
 
   const ChatEntity({
     required this.id,
@@ -14,6 +16,8 @@ class ChatEntity extends Equatable {
     required this.lastMessageSendBy,
     required this.lastMessageSendTs,
     required this.users,
+    required this.name,
+    required this.image,
   });
 
   Map<String, Object> toJson() {
@@ -22,6 +26,8 @@ class ChatEntity extends Equatable {
       'lastMessageSendBy': lastMessageSendBy,
       'lastMessageSendTs': lastMessageSendTs,
       'users': users,
+      'name': name,
+      'image': image,
     };
   }
 
@@ -34,6 +40,8 @@ class ChatEntity extends Equatable {
       lastMessageSendBy: doc['lastMessageSendBy'],
       lastMessageSendTs: doc['lastMessageSendTs'],
       users: (doc['users'] as List<dynamic>).map((e) => e as String).toList(),
+      name: doc['name'],
+      image: doc['image'],
     );
   }
 
@@ -47,6 +55,8 @@ class ChatEntity extends Equatable {
       users: (snap.docs[0]['users'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
+      name: snap.docs[0]['name'],
+      image: snap.docs[0]['image'],
     );
   }
 
@@ -56,5 +66,7 @@ class ChatEntity extends Equatable {
         lastMessageSendBy,
         lastMessageSendTs,
         users,
+        name,
+        image,
       ];
 }

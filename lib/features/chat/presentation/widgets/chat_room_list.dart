@@ -19,7 +19,7 @@ class _ChatRoomListWidgetState extends State<ChatRoomListWidget> {
   String username = "";
   @override
   void initState() {
-    BlocProvider.of<ChatsBloc>(context)..add(AllChatsLoaded(widget.myUserName));
+    context.read<ChatsBloc>().add(AllChatsLoaded(widget.myUserName));
     super.initState();
   }
 
@@ -36,7 +36,7 @@ class _ChatRoomListWidgetState extends State<ChatRoomListWidget> {
             itemBuilder: (context, index) {
               ChatEntity ds = state.chats[index];
               return ChatRoomListTileWidget(
-                  ds.lastMessage, ds.id, widget.myUserName);
+                  ds.lastMessage, ds.id, ds.name, ds.image, widget.myUserName);
             },
           );
         } else if (state is ChatsLoadFailure) {

@@ -42,7 +42,7 @@ Future<void> init() async {
 
   sl.registerFactory(
     () => ChatsBloc(
-      userRepository: sl(),
+      chatRepository: sl(),
     ),
   );
 

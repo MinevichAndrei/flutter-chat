@@ -7,12 +7,16 @@ class ChatModel extends ChatEntity {
     required lastMessageSendBy,
     required lastMessageSendTs,
     required users,
+    required name,
+    required image,
   }) : super(
           id: id,
           lastMessage: lastMessage,
           lastMessageSendBy: lastMessageSendBy,
           lastMessageSendTs: lastMessageSendTs,
           users: users,
+          name: name,
+          image: image,
         );
 
   ChatEntity toEntity() {
@@ -22,6 +26,8 @@ class ChatModel extends ChatEntity {
       lastMessageSendBy: lastMessageSendBy,
       lastMessageSendTs: lastMessageSendTs,
       users: users,
+      name: name,
+      image: image,
     );
   }
 
@@ -32,6 +38,8 @@ class ChatModel extends ChatEntity {
       lastMessageSendBy: entity.lastMessageSendBy,
       lastMessageSendTs: entity.lastMessageSendTs,
       users: entity.users,
+      name: entity.name,
+      image: entity.image,
     );
   }
 }

@@ -5,9 +5,9 @@ import 'package:flutter_chat/features/chat/presentation/bloc/chat_bloc/chat_even
 import 'package:flutter_chat/features/chat/presentation/bloc/chat_bloc/chat_state.dart';
 
 class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
-  final ChatRepository userRepository;
+  final ChatRepository chatRepository;
 
-  ChatsBloc({required this.userRepository}) : super(ChatsInitialState());
+  ChatsBloc({required this.chatRepository}) : super(ChatsInitialState());
 
   @override
   Stream<ChatsState> mapEventToState(ChatsEvent event) async* {
@@ -21,8 +21,10 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
 
   Stream<ChatsState> _mapAllChatsLoadedToState(String userName) async* {
     try {
-      final chats = this.userRepository.getChatRooms(userName);
-      chats.listen((ch) => add(ReceiveEvent(ch)));
+      final chats = this.chatRepository.getChatRooms(userName);
+      chats.listen((ch) {
+        return add(ReceiveEvent(ch));
+      });
     } catch (e) {
       yield ChatsLoadFailure(message: e.toString());
     }
