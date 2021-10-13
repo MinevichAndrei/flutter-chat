@@ -26,15 +26,18 @@ class SearchListUserTileWidget extends StatelessWidget {
                 .getChatRoomIdByUsernames(myUserName, username);
             Map<String, dynamic> chatRoomInfoMap = {
               "users": [myUserName, username],
+              "name": name,
+              "image": profileUrl,
             };
             context.read<CreateChatBloc>().add(CreateChat(
                 chatRoomId: chatRoomId, chatRoomInfoMap: chatRoomInfoMap));
-            //DatabaseMethods().createChatRoom(chatRoomId, chatRoomInfoMap);
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    ChatScreen(chatWithUsername: username, name: name),
+                builder: (context) => ChatScreen(
+                    chatWithUsername: username,
+                    name: name,
+                    chatRoomId: chatRoomId),
               ),
             );
           },

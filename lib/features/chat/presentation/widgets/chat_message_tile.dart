@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ChatMessageTileWidget extends StatelessWidget {
-  final String message;
+  final String message, ts;
   final bool sendByMe;
   const ChatMessageTileWidget(
-      {Key? key, required this.message, required this.sendByMe})
+      {Key? key,
+      required this.message,
+      required this.sendByMe,
+      required this.ts})
       : super(key: key);
 
   @override
@@ -23,13 +26,17 @@ class ChatMessageTileWidget extends StatelessWidget {
                 topRight: Radius.circular(24),
                 bottomLeft: sendByMe ? Radius.circular(24) : Radius.circular(0),
               ),
-              color: Colors.blue,
+              color: sendByMe ? Colors.blue : Colors.green,
             ),
             padding: EdgeInsets.all(16),
             child: Column(
               children: [
                 Text(
                   message,
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(
+                  ts,
                   style: TextStyle(color: Colors.white),
                 ),
               ],

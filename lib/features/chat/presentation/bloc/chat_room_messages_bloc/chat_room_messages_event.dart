@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_chat/features/chat/domain/entities/message_entity.dart';
 
 abstract class ChatRoomMessagesEvent extends Equatable {
   const ChatRoomMessagesEvent();
@@ -14,4 +15,9 @@ class LoadMessages extends ChatRoomMessagesEvent {
 
   @override
   List<Object> get props => [chatRoomId];
+}
+
+class ReceiveEvent extends ChatRoomMessagesEvent {
+  final List<MessageEntity> messages;
+  ReceiveEvent(this.messages);
 }

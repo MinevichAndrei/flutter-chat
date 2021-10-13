@@ -14,12 +14,16 @@ class UsersInfoBloc extends Bloc<UsersInfoEvent, UsersInfoState> {
   @override
   Stream<UsersInfoState> mapEventToState(UsersInfoEvent event) async* {
     if (event is UsersInfoLoaded) {
-      try {
-        final user = await this.chatRepository.getUserInfo(event.user);
-        yield UsersInfoLoadSuccess(user: user);
-      } catch (_) {
-        yield UsersInfoLoadFailure();
-      }
+      yield* mapUserLoadedEventToState(event.user);
+    }
+  }
+
+  Stream<UsersInfoState> mapUserLoadedEventToState(String username) async* {
+    try {
+      final user = await this.chatRepository.getUserInfo(username);
+      yield UsersInfoLoadSuccess(user: user);
+    } catch (_) {
+      yield UsersInfoLoadFailure();
     }
   }
 }

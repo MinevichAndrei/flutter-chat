@@ -27,7 +27,7 @@ class MessageEntity extends Equatable {
     return MessageEntity(
       message: json['message'] as String,
       sendBy: json['sendBy'] as String,
-      ts: json['ts'] as Timestamp,
+      ts: json['ts'] != null ? json['ts'] as Timestamp : Timestamp.now(),
       imgUrl: json['imgUrl'] as String,
     );
   }

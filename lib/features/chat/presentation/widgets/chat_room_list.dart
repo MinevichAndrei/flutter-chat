@@ -7,13 +7,24 @@ import 'package:flutter_chat/features/chat/presentation/bloc/chat_bloc/chat_even
 import 'package:flutter_chat/features/chat/presentation/bloc/chat_bloc/chat_state.dart';
 import 'package:flutter_chat/features/chat/presentation/widgets/chat_room_list_tile.dart';
 
-class ChatRoomListWidget extends StatelessWidget {
+class ChatRoomListWidget extends StatefulWidget {
   final String myUserName;
   ChatRoomListWidget({required this.myUserName});
 
   @override
+  _ChatRoomListWidgetState createState() => _ChatRoomListWidgetState();
+}
+
+class _ChatRoomListWidgetState extends State<ChatRoomListWidget> {
+  String username = "";
+  @override
+  void initState() {
+    context.read<ChatsBloc>().add(AllChatsLoaded(widget.myUserName));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    BlocProvider.of<ChatsBloc>(context)..add(AllChatsLoaded(myUserName));
     return BlocBuilder<ChatsBloc, ChatsState>(
       builder: (context, state) {
         if (state is ChatsInitialState || state is ChatsLoadInProgress) {
@@ -24,8 +35,8 @@ class ChatRoomListWidget extends StatelessWidget {
             shrinkWrap: true,
             itemBuilder: (context, index) {
               ChatEntity ds = state.chats[index];
-              print(ds.id);
-              return ChatRoomListTileWidget(ds.lastMessage, ds.id, myUserName);
+              return ChatRoomListTileWidget(
+                  ds.lastMessage, ds.id, ds.name, ds.image, widget.myUserName);
             },
           );
         } else if (state is ChatsLoadFailure) {
