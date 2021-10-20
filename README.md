@@ -1,16 +1,29 @@
-# flutter_chat
+# Tiny Chat
 
-A new Flutter project.
+<p  align="center">
+	<img  src="https://github.com/MinevichAndrei/flutter-chat/blob/main/assets/splash.png?raw=true"/>
+</p>
+
+## Give a Star! :star:
+If you like the project, please consider giving it a star to raise awareness!
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Generating a Firebase project configuration file
 
-A few resources to get you started if this is your first Flutter project:
+Installing your Firebase configuration file
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Building for Android
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Initializing FlutterFire
+
+[more details](https://firebase.flutter.dev/docs/overview)
+
+
+## Maintainers
+
+This repository is currently maintained by [@Minevich Andrei](https://github.com/MinevichAndrei). 
+
+## License
+
+This project has been released under the GPL-3.0 license. More information can be found by viewing the license [here](LICENSE).
