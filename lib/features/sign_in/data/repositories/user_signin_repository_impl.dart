@@ -60,4 +60,44 @@ class UserSignInRepositoryImpl implements UserSignInRepository {
       return false;
     }
   }
+
+  @override
+  Future<String> signInEmail(String email, String password) async {
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+      return "Signed in";
+    } on FirebaseAuthException catch (e) {
+      return e.message.toString();
+    }
+  }
+
+  @override
+  Future<String> signUpEmail(String email, String password) async {
+    try {
+      final userDetails = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      LocalStorageService().saveUserEmail(userDetails.user?.email);
+      LocalStorageService().saveUserId(userDetails.user?.uid);
+      LocalStorageService()
+          .saveUserName(userDetails.user?.email!.replaceAll("@gmail.com", ""));
+      LocalStorageService().saveDisplayName("");
+      LocalStorageService().saveUserProfileUrl("");
+
+      Map<String, dynamic> userInfoMap = {
+        "email": userDetails.user?.email,
+        "username": userDetails.user?.email!.replaceAll('@gmail.com', ''),
+        "name": "",
+        'imgUrl': "",
+      };
+
+      FirebaseFirestore.instance
+          .collection("users")
+          .doc(userDetails.user?.uid)
+          .set(userInfoMap);
+      return "Signed Up";
+    } on FirebaseAuthException catch (e) {
+      return e.message.toString();
+    }
+  }
 }
