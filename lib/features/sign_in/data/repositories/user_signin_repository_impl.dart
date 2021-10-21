@@ -22,25 +22,7 @@ class UserSignInRepositoryImpl implements UserSignInRepository {
     UserCredential result =
         await _firebaseAuth.signInWithCredential(credential);
     User? userDetails = result.user;
-
-    LocalStorageService().saveUserEmail(userDetails?.email);
-    LocalStorageService().saveUserId(userDetails?.uid);
-    LocalStorageService()
-        .saveUserName(userDetails?.email!.replaceAll("@gmail.com", ""));
-    LocalStorageService().saveDisplayName(userDetails?.displayName);
-    LocalStorageService().saveUserProfileUrl(userDetails?.photoURL);
-
-    Map<String, dynamic> userInfoMap = {
-      "email": userDetails!.email,
-      "username": userDetails.email!.replaceAll('@gmail.com', ''),
-      "name": userDetails.displayName,
-      'imgUrl': userDetails.photoURL,
-    };
-
-    FirebaseFirestore.instance
-        .collection("users")
-        .doc(userDetails.uid)
-        .set(userInfoMap);
+    setUsers(userDetails!);
   }
 
   String? getUserId() => _firebaseAuth.currentUser?.uid;
@@ -77,27 +59,32 @@ class UserSignInRepositoryImpl implements UserSignInRepository {
     try {
       final userDetails = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-      LocalStorageService().saveUserEmail(userDetails.user?.email);
-      LocalStorageService().saveUserId(userDetails.user?.uid);
-      LocalStorageService()
-          .saveUserName(userDetails.user?.email!.replaceAll("@gmail.com", ""));
-      LocalStorageService().saveDisplayName("");
-      LocalStorageService().saveUserProfileUrl("");
-
-      Map<String, dynamic> userInfoMap = {
-        "email": userDetails.user?.email,
-        "username": userDetails.user?.email!.replaceAll('@gmail.com', ''),
-        "name": "",
-        'imgUrl': "",
-      };
-
-      FirebaseFirestore.instance
-          .collection("users")
-          .doc(userDetails.user?.uid)
-          .set(userInfoMap);
+      setUsers(userDetails.user!);
       return "Signed Up";
     } on FirebaseAuthException catch (e) {
       return e.message.toString();
     }
+  }
+
+  @override
+  void setUsers(User user) {
+    LocalStorageService().saveUserEmail(user.email);
+    LocalStorageService().saveUserId(user.uid);
+    LocalStorageService()
+        .saveUserName(user.email!.replaceAll("@gmail.com", ""));
+    LocalStorageService().saveDisplayName(user.displayName);
+    LocalStorageService().saveUserProfileUrl(user.photoURL);
+
+    Map<String, dynamic> userInfoMap = {
+      "email": user.email,
+      "username": user.email!.replaceAll('@gmail.com', ''),
+      "name": user.displayName,
+      'imgUrl': user.photoURL,
+    };
+
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user.uid)
+        .set(userInfoMap);
   }
 }
