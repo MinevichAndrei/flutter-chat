@@ -31,8 +31,9 @@ class Home extends StatelessWidget {
             ),
           ),
         );
+      } else {
+        return Spinner();
       }
-      return Spinner();
     });
   }
 }

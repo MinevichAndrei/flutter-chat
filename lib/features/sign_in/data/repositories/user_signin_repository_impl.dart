@@ -70,16 +70,21 @@ class UserSignInRepositoryImpl implements UserSignInRepository {
   void setUsers(User user) {
     LocalStorageService().saveUserEmail(user.email);
     LocalStorageService().saveUserId(user.uid);
-    LocalStorageService()
-        .saveUserName(user.email!.replaceAll("@gmail.com", ""));
-    LocalStorageService().saveDisplayName(user.displayName);
-    LocalStorageService().saveUserProfileUrl(user.photoURL);
+    LocalStorageService().saveUserName(user.email!.split('@')[0]);
+    user.displayName != null
+        ? LocalStorageService().saveDisplayName(user.displayName)
+        : LocalStorageService().saveDisplayName(user.email!.split('@')[0]);
+    user.photoURL != null
+        ? LocalStorageService().saveUserProfileUrl(user.photoURL)
+        : LocalStorageService().saveUserProfileUrl("");
 
     Map<String, dynamic> userInfoMap = {
       "email": user.email,
-      "username": user.email!.replaceAll('@gmail.com', ''),
-      "name": user.displayName,
-      'imgUrl': user.photoURL,
+      "username": user.email!.split('@')[0],
+      "name": user.displayName != null
+          ? user.displayName
+          : user.email!.split('@')[0],
+      'imgUrl': user.photoURL != null ? user.photoURL : "",
     };
 
     FirebaseFirestore.instance

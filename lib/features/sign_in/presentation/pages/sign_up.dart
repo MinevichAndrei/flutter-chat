@@ -4,19 +4,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat/core/platform/screen_size.dart';
 import 'package:flutter_chat/features/sign_in/presentation/bloc/auth_methods_bloc/auth_methods_bloc.dart';
 import 'package:flutter_chat/features/sign_in/presentation/bloc/auth_methods_bloc/auth_methods_event.dart';
-import 'package:flutter_chat/features/sign_in/presentation/pages/sign_up.dart';
 import 'package:flutter_chat/features/sign_in/presentation/widgets/logo_widget.dart';
 import 'package:flutter_chat/main_application_screen.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
+class SignUp extends StatefulWidget {
+  const SignUp({Key? key}) : super(key: key);
 
   @override
-  _SignInState createState() => _SignInState();
+  _SignUpState createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignUpState extends State<SignUp> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   late bool _passwordVisible;
@@ -79,16 +78,16 @@ class _SignInState extends State<SignIn> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // Container(
-                          //   padding: EdgeInsets.only(bottom: 20),
-                          //   child: Text(
-                          //     'Вход',
-                          //     style: TextStyle(
-                          //         color: Colors.blueAccent,
-                          //         fontSize: 25,
-                          //         fontWeight: FontWeight.bold),
-                          //   ),
-                          // ),
+                          Container(
+                            padding: EdgeInsets.only(bottom: 10),
+                            child: Text(
+                              'Регистрация',
+                              style: TextStyle(
+                                  color: Colors.blueAccent,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
                           Container(
                             padding: EdgeInsets.all(10),
                             child: TextFormField(
@@ -144,39 +143,11 @@ class _SignInState extends State<SignIn> {
                                   onPressed: () {
                                     _submitForm();
                                   },
-                                  child: Text('Войти'),
+                                  child: Text('Зарегистрироваться'),
                                 ),
                                 SizedBox(
                                   height: 10,
                                 ),
-                                SignInButton(
-                                  Buttons.Google,
-                                  onPressed: () {
-                                    context
-                                        .read<AuthMethodsBloc>()
-                                        .add(AppStartedEvent());
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                MainApplicationScreen()));
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text("Нужен аккаунт?"),
-                                    TextButton(
-                                      onPressed: () {
-                                        _createUser();
-                                      },
-                                      child: Text("Создать"),
-                                    ),
-                                  ],
-                                )
                               ],
                             ),
                           )
@@ -211,7 +182,11 @@ class _SignInState extends State<SignIn> {
   }
 
   void _createUser() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => SignUp()));
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      context.read<AuthMethodsBloc>().add(SignUpEvent(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim()));
+    }
   }
 }

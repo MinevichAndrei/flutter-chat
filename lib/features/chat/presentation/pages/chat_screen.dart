@@ -18,8 +18,6 @@ class ChatScreen extends StatelessWidget {
     return BlocBuilder<UserFromLocalStorageBloc, UserFromLocalStorageState>(
       builder: (context, state) {
         if (state is UserFromLocalStorageLoadSuccess) {
-          // final String chatRoomId = ChatRoomIdService()
-          //     .getChatRoomIdByUsernames(chatWithUsername, state.user.username);
           return Scaffold(
             appBar: AppBar(
               title: Text(name),
