@@ -1,7 +1,7 @@
 # Tiny Chat
 
 <p  align="center">
-	<img  src="https://github.com/MinevichAndrei/flutter-chat/blob/main/assets/splash.png?raw=true"/>
+	<img  src="https://github.com/MinevichAndrei/flutter-chat/blob/main/assets/images/splash.png?raw=true"/>
 </p>
 
 ## Give a Star! :star:
