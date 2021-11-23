@@ -154,7 +154,7 @@ class _SignInState extends State<SignIn> {
                                   onPressed: () {
                                     context
                                         .read<AuthMethodsBloc>()
-                                        .add(AppStartedEvent());
+                                        .add(SignInWithGoogleEvent());
                                     Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
@@ -171,7 +171,11 @@ class _SignInState extends State<SignIn> {
                                     Text("Нужен аккаунт?"),
                                     TextButton(
                                       onPressed: () {
-                                        _createUser();
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SignUp()));
                                       },
                                       child: Text("Создать"),
                                     ),
@@ -196,6 +200,11 @@ class _SignInState extends State<SignIn> {
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      context.read<AuthMethodsBloc>().add(SignInEvent(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim()));
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => MainApplicationScreen()));
     }
   }
 
@@ -208,10 +217,5 @@ class _SignInState extends State<SignIn> {
     } else {
       return null;
     }
-  }
-
-  void _createUser() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => SignUp()));
   }
 }

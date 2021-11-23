@@ -21,6 +21,8 @@ class AuthMethodsBloc extends Bloc<AuthMethodsEvent, AuthMethodsState> {
       yield* _mapSignInWithGoogleEventToState();
     } else if (event is AppExitEvent) {
       yield* _mapAppOutedEventToState();
+    } else if (event is SignInEvent) {
+      yield* _mapSignInEventToState(event.email, event.password);
     }
   }
 
@@ -61,10 +63,21 @@ class AuthMethodsBloc extends Bloc<AuthMethodsEvent, AuthMethodsState> {
     try {
       await _userSignInRepository.authenticate();
       final userId = _userSignInRepository.getUserId();
-      yield userId == null
-          ? AuthStateError()
-          : SignInWithGoogleStateSuccess(userId);
+      yield userId == null ? AuthStateError() : AuthentificatedState(true);
     } catch (_) {
+      yield AuthStateError();
+    }
+  }
+
+  Stream<AuthMethodsState> _mapSignInEventToState(
+      String email, String password) async* {
+    try {
+      final result = await _userSignInRepository.signInEmail(email, password);
+      if (result == "Signed in") {
+        final userId = _userSignInRepository.getUserId();
+        yield userId == null ? AuthStateError() : AuthentificatedState(true);
+      }
+    } catch (e) {
       yield AuthStateError();
     }
   }

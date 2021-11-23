@@ -21,5 +21,12 @@ class SignUpEvent extends AuthMethodsEvent {
   final String email, password;
   SignUpEvent({required this.email, required this.password});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [email, password];
+}
+
+class SignInEvent extends AuthMethodsEvent {
+  final String email, password;
+  SignInEvent({required this.email, required this.password});
+  @override
+  List<Object> get props => [email, password];
 }

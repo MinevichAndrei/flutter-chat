@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat/core/platform/screen_size.dart';
 import 'package:flutter_chat/features/sign_in/presentation/bloc/auth_methods_bloc/auth_methods_bloc.dart';
 import 'package:flutter_chat/features/sign_in/presentation/bloc/auth_methods_bloc/auth_methods_event.dart';
+import 'package:flutter_chat/features/sign_in/presentation/pages/sign_in.dart';
 import 'package:flutter_chat/features/sign_in/presentation/widgets/logo_widget.dart';
 import 'package:flutter_chat/main_application_screen.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -141,7 +141,7 @@ class _SignUpState extends State<SignUp> {
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 50, vertical: 15)),
                                   onPressed: () {
-                                    _submitForm();
+                                    _createUser();
                                   },
                                   child: Text('Зарегистрироваться'),
                                 ),
@@ -187,6 +187,8 @@ class _SignUpState extends State<SignUp> {
       context.read<AuthMethodsBloc>().add(SignUpEvent(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => SignIn()));
     }
   }
 }

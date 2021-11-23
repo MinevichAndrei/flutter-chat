@@ -14,6 +14,7 @@ class MainApplicationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthMethodsBloc, AuthMethodsState>(
       builder: (context, state) {
+        print(state);
         if (state is AuthentificatedState) {
           if (state.isAuth) {
             return Home();
@@ -25,7 +26,7 @@ class MainApplicationScreen extends StatelessWidget {
         } else if (state is AuthStateError) {
           return SignIn();
         } else {
-          return Spinner();
+          return Text('d,ofmorfkrof');
         }
       },
     );

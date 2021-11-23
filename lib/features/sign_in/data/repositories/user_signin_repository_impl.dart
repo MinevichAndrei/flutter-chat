@@ -46,8 +46,10 @@ class UserSignInRepositoryImpl implements UserSignInRepository {
   @override
   Future<String> signInEmail(String email, String password) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(
+      final result = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
+      User? userDetails = result.user;
+      setUsers(userDetails!);
       return "Signed in";
     } on FirebaseAuthException catch (e) {
       return e.message.toString();
@@ -57,9 +59,8 @@ class UserSignInRepositoryImpl implements UserSignInRepository {
   @override
   Future<String> signUpEmail(String email, String password) async {
     try {
-      final userDetails = await _firebaseAuth.createUserWithEmailAndPassword(
+      await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-      setUsers(userDetails.user!);
       return "Signed Up";
     } on FirebaseAuthException catch (e) {
       return e.message.toString();

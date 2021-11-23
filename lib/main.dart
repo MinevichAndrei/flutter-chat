@@ -10,7 +10,6 @@ import 'package:flutter_chat/features/chat/presentation/bloc/send_message_bloc/s
 import 'package:flutter_chat/features/chat/presentation/bloc/user_from_local_storage_bloc/user_from_local_storage_bloc.dart';
 import 'package:flutter_chat/features/chat/presentation/bloc/user_info_bloc/user_info_bloc.dart';
 import 'package:flutter_chat/features/sign_in/presentation/bloc/auth_methods_bloc/auth_methods_event.dart';
-import 'package:flutter_chat/features/sign_in/presentation/pages/sign_in.dart';
 import 'package:flutter_chat/locator_service.dart' as di;
 import 'package:flutter_chat/main_application_screen.dart';
 import 'features/sign_in/presentation/bloc/auth_methods_bloc/auth_methods_bloc.dart';
@@ -54,8 +53,7 @@ class MyApp extends StatelessWidget {
         title: 'Tiny Chat',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(),
-        home: SignIn(),
-        // home: MainApplicationScreen(),
+        home: MainApplicationScreen(),
       ),
     );
   }

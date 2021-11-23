@@ -24,21 +24,6 @@ class AuthentificatedState extends AuthMethodsState {
 
 class AuthStateError extends AuthMethodsState {}
 
-// Sign In with Google
-class SignInWithGoogleStateSuccess extends AuthMethodsState {
-  const SignInWithGoogleStateSuccess(this.userId);
-
-  final String userId;
-
-  @override
-  List<Object> get props => [userId];
-
-  @override
-  String toString() => 'Authenticated { userId: $userId }';
-}
-
-// Sign In with Email and Password
-
 // Sign Up with Email and Password
 
 class SignUpWithEmailAndPasswordStateSuccess extends AuthMethodsState {
