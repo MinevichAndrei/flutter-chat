@@ -44,7 +44,9 @@ class SearchListUserTileWidget extends StatelessWidget {
           child: Row(
             children: [
               CircleAvatar(
-                backgroundImage: NetworkImage(profileUrl),
+                child: profileUrl.isNotEmpty
+                    ? Image.network(profileUrl)
+                    : Text(username),
               ),
               SizedBox(
                 width: 12,

@@ -22,8 +22,10 @@ class ChatRoomListTileWidget extends StatelessWidget {
         child: Row(
           children: [
             ClipOval(
-              child: Image.network(imageUrl,
-                  width: 40, height: 40, fit: BoxFit.cover),
+              child: imageUrl.isNotEmpty
+                  ? Image.network(imageUrl,
+                      width: 40, height: 40, fit: BoxFit.cover)
+                  : Text(username),
             ),
             SizedBox(
               width: 12,

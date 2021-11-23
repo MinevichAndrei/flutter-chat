@@ -9,10 +9,10 @@ import 'package:flutter_chat/features/chat/presentation/bloc/search_user_bloc/se
 import 'package:flutter_chat/features/chat/presentation/bloc/send_message_bloc/send_message_bloc.dart';
 import 'package:flutter_chat/features/chat/presentation/bloc/user_from_local_storage_bloc/user_from_local_storage_bloc.dart';
 import 'package:flutter_chat/features/chat/presentation/bloc/user_info_bloc/user_info_bloc.dart';
-import 'package:flutter_chat/features/sign_in/presentation/bloc/sign_in_with_google/sign_in_with_google_event.dart';
+import 'package:flutter_chat/features/sign_in/presentation/bloc/auth_methods_bloc/auth_methods_event.dart';
 import 'package:flutter_chat/locator_service.dart' as di;
 import 'package:flutter_chat/main_application_screen.dart';
-import 'features/sign_in/presentation/bloc/sign_in_with_google/sign_in_with_google_bloc.dart';
+import 'features/sign_in/presentation/bloc/auth_methods_bloc/auth_methods_bloc.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -35,8 +35,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<UserFromLocalStorageBloc>(
           create: (context) => di.sl<UserFromLocalStorageBloc>(),
         ),
-        BlocProvider<SignInWithGoogleBloc>(
-          create: (context) => di.sl<SignInWithGoogleBloc>()..add(AppStarted()),
+        BlocProvider<AuthMethodsBloc>(
+          create: (context) => di.sl<AuthMethodsBloc>()..add(AppStartedEvent()),
         ),
         BlocProvider<UsersInfoBloc>(
           create: (context) => di.sl<UsersInfoBloc>(),
@@ -50,10 +50,11 @@ class MyApp extends StatelessWidget {
             create: (context) => di.sl<SendMessageBloc>()),
       ],
       child: MaterialApp(
-          title: 'Tiny Chat',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(),
-          home: MainApplicationScreen()),
+        title: 'Tiny Chat',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(),
+        home: MainApplicationScreen(),
+      ),
     );
   }
 }

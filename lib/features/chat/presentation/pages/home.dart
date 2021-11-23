@@ -15,6 +15,7 @@ class Home extends StatelessWidget {
       ..add(UserLoadedFromLocalStorage());
     return BlocBuilder<UserFromLocalStorageBloc, UserFromLocalStorageState>(
         builder: (context, state) {
+      print(state);
       if (state is UserFromLocalStorageLoadSuccess) {
         return Scaffold(
           appBar: AppBar(
@@ -31,8 +32,9 @@ class Home extends StatelessWidget {
             ),
           ),
         );
+      } else {
+        return Spinner();
       }
-      return Spinner();
     });
   }
 }

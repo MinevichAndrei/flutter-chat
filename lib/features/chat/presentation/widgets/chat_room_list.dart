@@ -27,22 +27,25 @@ class _ChatRoomListWidgetState extends State<ChatRoomListWidget> {
   Widget build(BuildContext context) {
     return BlocBuilder<ChatsBloc, ChatsState>(
       builder: (context, state) {
-        if (state is ChatsInitialState || state is ChatsLoadInProgress) {
-          Spinner();
-        } else if (state is ChatsLoadSuccess) {
-          return ListView.builder(
-            itemCount: state.chats.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              ChatEntity ds = state.chats[index];
-              return ChatRoomListTileWidget(
-                  ds.lastMessage, ds.id, ds.name, ds.image, widget.myUserName);
-            },
-          );
+        print("STATE: $state");
+        if (state is ChatsLoadSuccess) {
+          if (state.chats.length > 0) {
+            return ListView.builder(
+              itemCount: state.chats.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                ChatEntity ds = state.chats[index];
+                return ChatRoomListTileWidget(ds.lastMessage, ds.id, ds.name,
+                    ds.image, widget.myUserName);
+              },
+            );
+          } else {
+            Text("Нет активных чатов");
+          }
         } else if (state is ChatsLoadFailure) {
           Text(state.message);
         }
-        return Spinner();
+        return Text("Нет активных чатов");
       },
     );
   }

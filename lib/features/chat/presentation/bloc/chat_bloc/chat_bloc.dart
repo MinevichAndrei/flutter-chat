@@ -23,6 +23,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     try {
       final chats = this.chatRepository.getChatRooms(userName);
       chats.listen((ch) {
+        print("LIST: $ch");
         return add(ReceiveEvent(ch));
       });
     } catch (e) {
